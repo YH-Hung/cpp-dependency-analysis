@@ -1,50 +1,216 @@
-# [PROJECT_NAME] Constitution
-<!-- Example: Spec Constitution, TaskFlow Constitution, etc. -->
+<!--
+SYNC IMPACT REPORT
+==================
+Version Change: None → 1.0.0 (Initial Constitution)
+Constitution Type: MINOR (Initial creation with 7 core principles)
+
+Principles Defined:
+- I. Zero-Defect Commitment (NEW)
+- II. Test-Driven Development (NEW)
+- III. Code Quality Standards (NEW)
+- IV. Static Analysis First (NEW)
+- V. Memory Safety (NEW)
+- VI. Build Verification (NEW)
+- VII. Dependency Hygiene (NEW)
+
+Template Sync Status:
+✅ plan-template.md - Constitution Check section references this file
+✅ spec-template.md - Aligned with testing/quality requirements
+✅ tasks-template.md - Task categorization reflects principle-driven types
+✅ All command files - No agent-specific overrides needed
+
+Follow-up TODOs: None
+-->
+
+# C++ Dependency Analysis Tool Constitution
 
 ## Core Principles
 
-### [PRINCIPLE_1_NAME]
-<!-- Example: I. Library-First -->
-[PRINCIPLE_1_DESCRIPTION]
-<!-- Example: Every feature starts as a standalone library; Libraries must be self-contained, independently testable, documented; Clear purpose required - no organizational-only libraries -->
+### I. Zero-Defect Commitment
 
-### [PRINCIPLE_2_NAME]
-<!-- Example: II. CLI Interface -->
-[PRINCIPLE_2_DESCRIPTION]
-<!-- Example: Every library exposes functionality via CLI; Text in/out protocol: stdin/args → stdout, errors → stderr; Support JSON + human-readable formats -->
+Every release MUST be bug-free. Code is only considered complete when it passes ALL quality gates:
+- All tests passing (unit, integration, contract)
+- Zero compiler warnings on strictest settings (-Wall -Wextra -Werror)
+- Zero static analysis violations
+- Zero memory leaks or undefined behavior detected by sanitizers
+- All edge cases documented and tested
 
-### [PRINCIPLE_3_NAME]
-<!-- Example: III. Test-First (NON-NEGOTIABLE) -->
-[PRINCIPLE_3_DESCRIPTION]
-<!-- Example: TDD mandatory: Tests written → User approved → Tests fail → Then implement; Red-Green-Refactor cycle strictly enforced -->
+**Rationale**: A dependency analysis tool must be trustworthy. Users rely on accurate dependency graphs; any bug could lead to incorrect build decisions, security vulnerabilities, or broken deployments.
 
-### [PRINCIPLE_4_NAME]
-<!-- Example: IV. Integration Testing -->
-[PRINCIPLE_4_DESCRIPTION]
-<!-- Example: Focus areas requiring integration tests: New library contract tests, Contract changes, Inter-service communication, Shared schemas -->
+### II. Test-Driven Development (NON-NEGOTIABLE)
 
-### [PRINCIPLE_5_NAME]
-<!-- Example: V. Observability, VI. Versioning & Breaking Changes, VII. Simplicity -->
-[PRINCIPLE_5_DESCRIPTION]
-<!-- Example: Text I/O ensures debuggability; Structured logging required; Or: MAJOR.MINOR.BUILD format; Or: Start simple, YAGNI principles -->
+TDD is mandatory for ALL features:
+1. Write failing tests FIRST (unit + integration)
+2. Obtain approval/review of test coverage
+3. Verify tests fail for the right reasons
+4. Implement minimum code to pass tests
+5. Refactor while keeping tests green
+6. Add edge case tests before marking complete
 
-## [SECTION_2_NAME]
-<!-- Example: Additional Constraints, Security Requirements, Performance Standards, etc. -->
+**Rationale**: C++ code is complex and error-prone. Writing tests first ensures we build exactly what's needed and can refactor confidently. Red-Green-Refactor cycle prevents over-engineering.
 
-[SECTION_2_CONTENT]
-<!-- Example: Technology stack requirements, compliance standards, deployment policies, etc. -->
+### III. Code Quality Standards
 
-## [SECTION_3_NAME]
-<!-- Example: Development Workflow, Review Process, Quality Gates, etc. -->
+All code MUST meet these non-negotiable standards:
+- Modern C++ (C++17 minimum, C++20 preferred)
+- RAII for all resource management (no manual new/delete)
+- Const-correctness enforced everywhere
+- No raw pointers except for non-owning references
+- Smart pointers (unique_ptr, shared_ptr) for ownership
+- Comprehensive error handling (no silent failures)
+- Self-documenting code: clear names, minimal comments except for "why"
+- Maximum function complexity: cyclomatic complexity ≤ 10
 
-[SECTION_3_CONTENT]
-<!-- Example: Code review requirements, testing gates, deployment approval process, etc. -->
+**Rationale**: High-quality C++ code prevents bugs at compile time. Following modern idioms reduces memory errors, resource leaks, and undefined behavior.
+
+### IV. Static Analysis First
+
+Before ANY code review or commit:
+- clang-tidy MUST pass with project .clang-tidy config
+- cppcheck MUST report zero issues
+- Address Sanitizer (ASan) MUST pass on test suite
+- Undefined Behavior Sanitizer (UBSan) MUST pass
+- Thread Sanitizer (TSan) for concurrent code
+
+**Rationale**: Static analysis catches bugs humans miss. Running sanitizers during tests catches memory errors, data races, and undefined behavior before they reach production.
+
+### V. Memory Safety
+
+All code MUST be memory-safe:
+- Valgrind clean (zero leaks, zero invalid access)
+- No use-after-free, double-free, or buffer overflows
+- All heap allocations tracked and freed
+- RAII wrappers for all external resources (files, sockets, etc.)
+- Bounds checking for array/vector access
+- Safe string handling (no C-style char* manipulation)
+
+**Rationale**: Memory bugs are the #1 source of crashes and security vulnerabilities in C++. A dependency analysis tool must process large codebases reliably without crashes or memory exhaustion.
+
+### VI. Build Verification
+
+Continuous verification at every stage:
+- Code MUST build with zero warnings (-Wall -Wextra -Werror)
+- All tests MUST pass before commit
+- CMake configuration MUST be warning-free
+- Cross-platform builds validated (Linux, macOS minimum)
+- Build time monitored (no regressions >10% without justification)
+- Dependencies MUST specify exact versions (no "latest")
+
+**Rationale**: Clean builds prevent hidden issues. Cross-platform validation ensures portability. Build time matters for developer productivity.
+
+### VII. Dependency Hygiene
+
+Dependency management rules:
+- Minimize external dependencies (justify each addition)
+- Prefer header-only libraries where appropriate
+- All dependencies MUST be actively maintained
+- Security vulnerabilities in dependencies = BLOCKER
+- Lock dependency versions in CMakeLists.txt
+- Document why each dependency is needed
+- Provide fallback/mock for testing without external deps
+
+**Rationale**: Dependency analysis tools should model good dependency hygiene. Fewer dependencies = fewer security risks, easier builds, more reliable software.
+
+## Testing Standards
+
+### Test Categories
+
+1. **Unit Tests**:
+   - Test individual classes/functions in isolation
+   - Fast (<1ms per test)
+   - 100% code coverage for critical paths
+   - Mock external dependencies
+
+2. **Integration Tests**:
+   - Test component interactions
+   - Real file system, real dependency graphs
+   - Performance benchmarks included
+   - Test with realistic C++ projects
+
+3. **Contract Tests**:
+   - CLI interface contracts (input/output formats)
+   - API contracts if library mode exists
+   - Backward compatibility guarantees
+
+### Test Requirements
+
+- ALL tests automated (no manual testing except exploratory)
+- Tests MUST be deterministic (no flaky tests)
+- Tests MUST be isolated (order-independent)
+- Performance regression tests for critical operations
+- Test data includes real-world C++ projects (small/medium/large)
+
+## Code Review Requirements
+
+Before merge, code MUST:
+1. Pass all automated checks (CI pipeline)
+2. Have peer review approval
+3. Include test coverage report
+4. Update documentation if behavior changed
+5. Pass constitution compliance check
+
+## Development Workflow
+
+### Feature Development Flow
+
+1. **Specification Phase**:
+   - Write user stories with acceptance criteria
+   - Identify affected components
+   - Plan test strategy
+
+2. **TDD Phase**:
+   - Write failing tests
+   - Get test review
+   - Implement to pass tests
+   - Refactor
+
+3. **Quality Gate Phase**:
+   - Static analysis clean
+   - Memory checks clean
+   - Performance benchmarks pass
+   - Documentation updated
+
+4. **Review Phase**:
+   - Code review
+   - Constitution compliance check
+   - Integration testing
+   - Merge
+
+### Bug Fix Flow
+
+1. Write failing test reproducing bug
+2. Fix bug (minimum change)
+3. Verify test passes
+4. Add regression test if needed
+5. Full quality gate check
+6. Review and merge
 
 ## Governance
-<!-- Example: Constitution supersedes all other practices; Amendments require documentation, approval, migration plan -->
 
-[GOVERNANCE_RULES]
-<!-- Example: All PRs/reviews must verify compliance; Complexity must be justified; Use [GUIDANCE_FILE] for runtime development guidance -->
+### Amendment Process
 
-**Version**: [CONSTITUTION_VERSION] | **Ratified**: [RATIFICATION_DATE] | **Last Amended**: [LAST_AMENDED_DATE]
-<!-- Example: Version: 2.1.1 | Ratified: 2025-06-13 | Last Amended: 2025-07-16 -->
+1. Propose amendment with rationale
+2. Impact analysis on existing code/practices
+3. Team discussion and approval
+4. Update constitution version (semantic versioning)
+5. Update dependent templates
+6. Communicate to all contributors
+
+### Version Semantics
+
+- **MAJOR**: Removes/redefines principles, breaking changes to standards
+- **MINOR**: Adds new principles or expands existing ones
+- **PATCH**: Clarifications, typo fixes, non-semantic updates
+
+### Compliance
+
+- All PRs MUST verify compliance with constitution
+- Violations require explicit justification (documented in complexity tracking)
+- Constitution supersedes all other development practices
+- Quarterly constitution review to ensure it serves project needs
+
+### Living Document
+
+This constitution evolves with the project. When principles become outdated or overly burdensome, propose amendments. But changes require careful consideration and team consensus.
+
+**Version**: 1.0.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25
