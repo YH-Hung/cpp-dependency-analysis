@@ -1,0 +1,237 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "C++ Function Grouper Output",
+  "description": "JSON output schema for C++ function dependency analysis results",
+  "type": "object",
+  "required": ["metadata", "functions", "groups"],
+  "properties": {
+    "metadata": {
+      "type": "object",
+      "required": [
+        "source_file",
+        "parse_timestamp",
+        "total_functions",
+        "successfully_parsed",
+        "failed_to_parse",
+        "total_call_edges",
+        "total_groups",
+        "independent_groups",
+        "largest_group_size",
+        "analysis_duration_seconds",
+        "memory_used_mb"
+      ],
+      "properties": {
+        "source_file": {
+          "type": "string",
+          "description": "Absolute path to the analyzed C++ file"
+        },
+        "parse_timestamp": {
+          "type": "string",
+          "format": "date-time",
+          "description": "ISO 8601 timestamp when analysis was performed"
+        },
+        "total_functions": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of functions found in the file"
+        },
+        "successfully_parsed": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of functions successfully parsed"
+        },
+        "failed_to_parse": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of functions that could not be parsed"
+        },
+        "total_call_edges": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total number of function call relationships identified"
+        },
+        "total_groups": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of function groups identified"
+        },
+        "independent_groups": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Number of groups with no external dependencies"
+        },
+        "largest_group_size": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Size of the largest function group"
+        },
+        "analysis_duration_seconds": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Time taken for analysis in seconds"
+        },
+        "memory_used_mb": {
+          "type": "number",
+          "minimum": 0,
+          "description": "Peak memory usage during analysis in megabytes"
+        }
+      }
+    },
+    "functions": {
+      "type": "array",
+      "description": "List of all functions found in the file",
+      "items": {
+        "type": "object",
+        "required": ["name", "qualified_name", "signature", "location", "kind", "calls", "parse_status"],
+        "properties": {
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Simple function name"
+          },
+          "qualified_name": {
+            "type": "string",
+            "minLength": 1,
+            "description": "Fully qualified name including namespace/class"
+          },
+          "signature": {
+            "type": "string",
+            "description": "Complete function signature including return type and parameters"
+          },
+          "location": {
+            "type": "object",
+            "required": ["file", "line", "column"],
+            "properties": {
+              "file": {
+                "type": "string",
+                "description": "Source file path"
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Starting line number (1-indexed)"
+              },
+              "column": {
+                "type": "integer",
+                "minimum": 1,
+                "description": "Starting column number (1-indexed)"
+              },
+              "end_line": {
+                "type": ["integer", "null"],
+                "minimum": 1,
+                "description": "Ending line number (optional)"
+              }
+            }
+          },
+          "kind": {
+            "type": "string",
+            "enum": [
+              "FREE_FUNCTION",
+              "MEMBER_FUNCTION",
+              "STATIC_MEMBER_FUNCTION",
+              "CONSTRUCTOR",
+              "DESTRUCTOR",
+              "OPERATOR",
+              "LAMBDA",
+              "TEMPLATE_FUNCTION",
+              "TEMPLATE_SPECIALIZATION"
+            ],
+            "description": "Type of function"
+          },
+          "calls": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "List of qualified names of functions called by this function"
+          },
+          "parse_status": {
+            "type": "string",
+            "enum": ["SUCCESS", "PARTIAL", "FAILED"],
+            "description": "Parsing result status"
+          },
+          "error_message": {
+            "type": ["string", "null"],
+            "description": "Error message if parse_status is PARTIAL or FAILED"
+          }
+        }
+      }
+    },
+    "groups": {
+      "type": "array",
+      "description": "List of function groups (connected components)",
+      "items": {
+        "type": "object",
+        "required": ["group_id", "functions", "is_independent", "internal_edges", "external_edges", "has_cycles"],
+        "properties": {
+          "group_id": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Unique identifier for this group"
+          },
+          "functions": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "minItems": 1,
+            "description": "List of qualified function names in this group"
+          },
+          "is_independent": {
+            "type": "boolean",
+            "description": "True if this group has no calls to/from other groups"
+          },
+          "internal_edges": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of call edges within the group"
+          },
+          "external_edges": {
+            "type": "integer",
+            "minimum": 0,
+            "description": "Number of call edges to/from other groups"
+          },
+          "has_cycles": {
+            "type": "boolean",
+            "description": "Whether this group contains circular dependencies"
+          }
+        }
+      }
+    },
+    "parse_errors": {
+      "type": "array",
+      "description": "List of parsing errors encountered (optional)",
+      "items": {
+        "type": "object",
+        "required": ["function_name", "location", "error"],
+        "properties": {
+          "function_name": {
+            "type": "string",
+            "description": "Name of the function that failed to parse"
+          },
+          "location": {
+            "type": "object",
+            "required": ["file", "line", "column"],
+            "properties": {
+              "file": {
+                "type": "string"
+              },
+              "line": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "column": {
+                "type": "integer",
+                "minimum": 1
+              }
+            }
+          },
+          "error": {
+            "type": "string",
+            "description": "Error message describing why parsing failed"
+          }
+        }
+      }
+    }
+  }
+}
