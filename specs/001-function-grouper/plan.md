@@ -1,97 +1,89 @@
 # Implementation Plan: C++ Function Grouper
 
-**Branch**: `001-function-grouper` | **Date**: 2025-10-25 | **Spec**: [spec.md](./spec.md)
+**Branch**: `001-function-grouper` | **Date**: 2025-10-27 | **Spec**: [spec.md](spec.md)
 **Input**: Feature specification from `/specs/001-function-grouper/spec.md`
-
-**Note**: This template is filled in by the `/speckit.plan` command. See `.specify/templates/commands/plan.md` for the execution workflow.
 
 ## Summary
 
-Build a CLI tool that analyzes C++ implementation files to identify independent function groups based on call relationships. The tool parses C++ source using AST-based analysis (not regex), builds a dependency graph, performs connected component analysis to find independent groups, and outputs results in multiple formats (JSON, text, DOT). Target performance: 10,000-line files in under 30 seconds with up to 1000 functions, using maximum 2GB memory.
+Build a command-line tool that analyzes C++ source files to identify independent function groups based on call relationships. The tool parses C++ files using libclang to build an Abstract Syntax Tree (AST), constructs a directed call graph, and uses connected component analysis to identify groups of functions that do not reference each other. Output formats include JSON (structured data), plain text (human-readable), and DOT (Graphviz visualization).
+
+**Technical Approach**: Python 3.11+ with libclang 18.1.1+ for C++ AST parsing, networkx for graph algorithms, and click for CLI framework.
 
 ## Technical Context
 
 **Language/Version**: Python 3.11+
 **Primary Dependencies**: libclang 18.1.1+ (C++ AST parser with full C++17/C++20 support), click (CLI framework), networkx (graph algorithms)
-**Package Manager**: uv (modern Python package and project manager)
-**Storage**: File-based (input: .cpp files, output: JSON/text/DOT files)
-**Testing**: pytest with pytest-cov for coverage, pytest-benchmark for performance testing
-**Target Platform**: Cross-platform CLI (Linux, macOS, Windows)
-**Project Type**: Single command-line application
-**Performance Goals**:
-  - Parse and analyze 10,000-line files in <30 seconds
-  - Handle up to 1000 function definitions
-  - Memory usage <2GB
-**Constraints**:
-  - Must use AST-based parsing (not regex)
-  - Must handle C++17/C++20 syntax
-  - Must gracefully handle parse errors (partial analysis)
-  - Must provide progress indication for long operations
-**Scale/Scope**:
-  - Single-file analysis (no multi-file project support in MVP)
-  - Handle realistic C++ codebases (10k+ lines, hundreds of functions)
-  - Support three output formats (JSON, plain text, Graphviz DOT)
+**Storage**: N/A (processes files in-memory, outputs to stdout or specified file)
+**Testing**: pytest (unit/integration/contract tests), pytest-cov (coverage), mypy (type checking), ruff (linting)
+**Target Platform**: Linux, macOS (cross-platform via libclang binary wheels)
+**Project Type**: single (CLI tool with library components)
+**Performance Goals**: Parse 10,000-line files in under 30 seconds, handle up to 1000 function definitions
+**Constraints**: <2GB memory usage, 95%+ parse success rate on real-world C++ code
+**Scale/Scope**: Single-file analysis, modern C++ (C++17 baseline, C++20 support)
 
 ## Constitution Check
 
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
-**Note**: The constitution specifies C++ code quality standards. However, this tool is written in Python to analyze C++ code. The following gates apply with Python-specific adaptations:
+### I. Zero-Defect Commitment ✅
+- **Status**: PASS
+- **Evidence**: All quality gates defined in tasks.md (tests, sanitizers not applicable to Python, linting via ruff)
+- **Action**: No violations
 
-### ✅ Passing Gates
+### II. Test-Driven Development (NON-NEGOTIABLE) ✅
+- **Status**: PASS
+- **Evidence**: Test tasks precede implementation tasks in tasks.md, TDD workflow enforced
+- **Action**: No violations
 
-1. **Test-Driven Development (Principle II)**: ✅ PASS
-   - Plan includes comprehensive pytest-based testing
-   - TDD workflow applies to Python implementation
-   - Integration tests with real C++ code samples
+### III. Code Quality Standards ✅
+- **Status**: PASS (adapted for Python)
+- **Evidence**: Using modern Python 3.11+, type hints enforced via mypy, ruff for linting, maximum function complexity enforced
+- **Action**: No violations (C++-specific standards not applicable)
 
-2. **Zero-Defect Commitment (Principle I)**: ✅ PASS
-   - All tests must pass
-   - Python linting (ruff/pylint) replaces C++ static analysis
-   - Type checking with mypy
-   - 100% accuracy requirement per SC-002
+### IV. Static Analysis First ✅
+- **Status**: PASS (adapted for Python)
+- **Evidence**: Using ruff (linter), mypy (type checker) before code review
+- **Action**: No violations (C++ sanitizers not applicable, using Python equivalents)
 
-3. **Dependency Hygiene (Principle VII)**: ⚠️ NEEDS RESEARCH
-   - Must select actively maintained C++ parser library
-   - Lock versions in pyproject.toml (uv manages this)
-   - Justify parser choice in research phase
+### V. Memory Safety ✅
+- **Status**: PASS (adapted for Python)
+- **Evidence**: Python provides automatic memory management, performance tests include memory usage limits (<2GB)
+- **Action**: No violations (Python handles memory safety, no manual allocation)
 
-4. **Build Verification (Principle VI)**: ✅ PASS (adapted for Python)
-   - Zero warnings from linters (ruff, mypy)
-   - CI pipeline with automated tests
-   - Cross-platform validation (Linux, macOS, Windows)
+### VI. Build Verification ✅
+- **Status**: PASS
+- **Evidence**: All tests must pass before commit, dependency versions locked in pyproject.toml, cross-platform validation (Linux, macOS)
+- **Action**: No violations
 
-### ⚠️ Principles Requiring Adaptation
+### VII. Dependency Hygiene ✅
+- **Status**: PASS
+- **Evidence**: Minimal dependencies (libclang, click, networkx), all actively maintained, versions locked, justifications documented in research.md
+- **Action**: No violations
 
-1. **Code Quality Standards (Principle III)**: Adapted for Python
-   - Modern Python (3.11+) instead of C++17
-   - Type hints (mypy) for type safety
-   - Clear naming, PEP 8 compliance
-   - Maximum function complexity ≤10 (same as C++)
+### VIII. Comprehensive Documentation ⚠️ REQUIRES ATTENTION
+- **Status**: PASS (with action items)
+- **Evidence**: README.md exists with installation, usage, examples
+- **Action Required**:
+  - Verify all README.md code samples are runnable
+  - Add comprehensive examples covering all output formats (JSON, text, DOT)
+  - Include troubleshooting section for common issues
+  - Add sample verification step to tasks.md
 
-2. **Static Analysis First (Principle IV)**: Adapted for Python
-   - ruff (linter) instead of clang-tidy
-   - mypy (type checker) instead of C++ compiler checks
-   - No sanitizers (Python memory-managed)
-   - Security: bandit for Python security issues
+### IX. Sample-Driven Verification ⚠️ REQUIRES ATTENTION
+- **Status**: REQUIRES IMPLEMENTATION
+- **Evidence**: Not yet implemented in workflow
+- **Action Required**:
+  - Add sample generation tasks to tasks.md for each user story
+  - Generate real C++ sample files demonstrating tool functionality
+  - Add verification tasks to execute samples and validate output
+  - Include samples in integration tests or examples/ directory
 
-3. **Memory Safety (Principle V)**: Adapted for Python
-   - Python garbage collection handles most memory
-   - Must monitor memory usage to stay <2GB (SC-001a)
-   - Use memory_profiler during testing
-   - Handle large files efficiently (streaming/chunking if needed)
+**Constitution Compliance**: 7/9 principles fully compliant, 2/9 require additional implementation (Principles VIII and IX - documentation and sample verification)
 
-### ❌ Not Applicable
-
-- C++ specific tools (clang-tidy, cppcheck, ASan, UBSan, TSan, Valgrind)
-- C++ RAII patterns (Python uses context managers)
-- CMake (using uv for Python project management)
-
-### Constitution Compliance Summary
-
-**Status**: ✅ COMPLIANT with adaptations
-
-The project follows the spirit of the constitution (zero-defect, TDD, quality standards, dependency hygiene) adapted for Python tooling. The Python implementation will analyze C++ code but is not itself subject to C++ quality gates.
+**Post-Design Re-Check**: After Phase 1 completion, verify that:
+1. README.md includes verified runnable samples for all output formats
+2. Sample verification tasks are added to implementation workflow
+3. All code examples in documentation are tested
 
 ## Project Structure
 
@@ -100,86 +92,168 @@ The project follows the spirit of the constitution (zero-defect, TDD, quality st
 ```text
 specs/001-function-grouper/
 ├── plan.md              # This file (/speckit.plan command output)
-├── research.md          # Phase 0 output (/speckit.plan command)
-├── data-model.md        # Phase 1 output (/speckit.plan command)
-├── quickstart.md        # Phase 1 output (/speckit.plan command)
-├── contracts/           # Phase 1 output (/speckit.plan command)
-└── tasks.md             # Phase 2 output (/speckit.tasks command - NOT created by /speckit.plan)
+├── research.md          # Phase 0 output - C++ parser library comparison (COMPLETE)
+├── data-model.md        # Phase 1 output - Data structures and entities (COMPLETE)
+├── quickstart.md        # Phase 1 output - Developer quickstart guide (COMPLETE)
+├── contracts/           # Phase 1 output - CLI interface contracts (COMPLETE)
+│   ├── cli-interface.md
+│   └── output-formats.md
+└── tasks.md             # Phase 2 output (/speckit.tasks command) (COMPLETE)
 ```
 
 ### Source Code (repository root)
 
 ```text
 cpp-dependency-analysis/
-├── pyproject.toml           # uv project configuration
-├── uv.lock                  # Locked dependencies
-├── README.md
-├── .python-version          # Python version specification
-├── src/
-│   └── function_grouper/
-│       ├── __init__.py
-│       ├── __main__.py      # CLI entry point
-│       ├── cli/
-│       │   ├── __init__.py
-│       │   ├── main.py      # Command-line interface (argparse/click)
-│       │   └── progress.py  # Progress indication
-│       ├── parser/
-│       │   ├── __init__.py
-│       │   ├── cpp_parser.py       # C++ AST parsing
-│       │   └── function_extractor.py # Extract function definitions
-│       ├── analyzer/
-│       │   ├── __init__.py
-│       │   ├── dependency_graph.py # Graph construction
-│       │   ├── call_analyzer.py    # Identify function calls
-│       │   └── grouper.py          # Find independent groups (connected components)
-│       ├── formatter/
-│       │   ├── __init__.py
-│       │   ├── json_formatter.py   # JSON output
-│       │   ├── text_formatter.py   # Human-readable text
-│       │   └── dot_formatter.py    # Graphviz DOT format
-│       └── models/
-│           ├── __init__.py
-│           ├── function.py         # Function dataclass
-│           ├── call_graph.py       # Call graph dataclass
-│           └── group.py            # Function group dataclass
-├── tests/
+├── src/function_grouper/       # Main package
 │   ├── __init__.py
-│   ├── conftest.py              # Pytest fixtures
-│   ├── contract/
+│   ├── parser/                 # C++ AST parsing module
 │   │   ├── __init__.py
-│   │   ├── test_cli_interface.py    # CLI contract tests
-│   │   └── test_output_formats.py   # JSON/text/DOT format contracts
-│   ├── integration/
+│   │   ├── clang_parser.py     # libclang wrapper for C++ parsing
+│   │   ├── function_extractor.py # Extract function definitions and calls
+│   │   └── ast_visitor.py      # AST traversal utilities
+│   ├── analyzer/               # Call graph and grouping logic
 │   │   ├── __init__.py
-│   │   ├── test_end_to_end.py       # Full workflow tests
-│   │   ├── test_large_files.py      # Performance/scalability tests
-│   │   └── fixtures/                # Sample C++ files
-│   │       ├── simple_independent.cpp
-│   │       ├── complex_dependencies.cpp
-│   │       ├── circular_deps.cpp
-│   │       └── large_10k_lines.cpp
-│   └── unit/
+│   │   ├── call_graph.py       # Build directed call graph
+│   │   ├── group_detector.py   # Connected component analysis
+│   │   └── dependency_analyzer.py # Identify dependencies
+│   ├── formatter/              # Output formatting
+│   │   ├── __init__.py
+│   │   ├── json_formatter.py   # JSON output
+│   │   ├── text_formatter.py   # Human-readable text
+│   │   └── dot_formatter.py    # Graphviz DOT format
+│   ├── cli/                    # Command-line interface
+│   │   ├── __init__.py
+│   │   └── main.py             # Click CLI entry point
+│   └── models/                 # Data models
 │       ├── __init__.py
+│       ├── function.py         # Function entity
+│       ├── call_graph.py       # CallGraph entity
+│       └── function_group.py   # FunctionGroup entity
+│
+├── tests/                      # Test suite
+│   ├── contract/               # CLI contract tests
+│   │   ├── test_cli_interface.py
+│   │   └── test_output_formats.py
+│   ├── integration/            # Integration tests
+│   │   ├── test_end_to_end.py
+│   │   └── test_real_world_files.py
+│   └── unit/                   # Unit tests
 │       ├── test_parser.py
 │       ├── test_analyzer.py
-│       ├── test_grouper.py
-│       └── test_formatters.py
-└── .github/
-    └── workflows/
-        └── ci.yml                   # CI pipeline (pytest, linting, type-checking)
+│       ├── test_formatter.py
+│       └── test_models.py
+│
+├── examples/                   # Sample C++ files and outputs (NEW - for Principle IX)
+│   ├── simple.cpp              # Simple example with 3 independent functions
+│   ├── simple_output.json      # Expected JSON output
+│   ├── simple_output.txt       # Expected text output
+│   ├── complex.cpp             # Complex example with circular dependencies
+│   └── README.md               # Guide to examples
+│
+├── pyproject.toml              # Python project configuration
+├── README.md                   # User documentation (updated per Principle VIII)
+├── CONTRIBUTING.md             # Contributor guidelines
+└── LICENSE
 ```
 
-**Structure Decision**: Single Python CLI application following modern Python project layout. Using `src/` layout for better isolation and testing. The `function_grouper` package contains modular components:
-- **cli/**: User interface and progress reporting
-- **parser/**: C++ AST parsing (library TBD in research phase)
-- **analyzer/**: Dependency graph construction and grouping logic
-- **formatter/**: Multiple output format support
-- **models/**: Data classes for Function, CallGraph, Group
+**Structure Decision**: Single project structure selected because this is a CLI tool with library components. No frontend/backend separation needed. The project uses Python's standard package layout with clear separation of concerns: parser (AST analysis), analyzer (graph algorithms), formatter (output generation), and cli (user interface).
 
-Tests are organized by type (contract, integration, unit) per constitution testing standards. Integration tests include C++ fixture files for realistic testing.
+## Compliance with New Constitution Principles
+
+### Principle VIII: Comprehensive Documentation
+
+**Current Status**: README.md exists but requires verification
+
+**Required Actions**:
+1. **Verify Runnable Samples**: All code examples in README.md must be executable
+2. **Add Comprehensive Examples**:
+   - Installation example (pip install)
+   - Basic usage (analyze simple C++ file)
+   - Advanced usage (all output formats: JSON, text, DOT)
+   - Include paths example
+   - Error handling example
+3. **Maintain Documentation**: Update README.md whenever features change
+4. **Troubleshooting Section**: Add common issues and solutions
+
+**Implementation Timeline**: Include in Phase 3 (Polish & Documentation)
+
+### Principle IX: Sample-Driven Verification
+
+**Current Status**: Not yet implemented
+
+**Required Actions**:
+1. **Create examples/ Directory**: Add sample C++ files demonstrating tool functionality
+2. **Generate Sample Files**:
+   - `examples/simple.cpp`: 3-5 functions, 2 independent groups
+   - `examples/complex.cpp`: 10+ functions, circular dependencies, templates
+   - `examples/edge_cases.cpp`: Recursion, overloads, lambdas
+3. **Execute Samples**: Run tool against each sample file
+4. **Verify Output**: Validate that output matches expected results
+5. **Include in Tests**: Integration tests should use sample files
+6. **Document Samples**: `examples/README.md` explaining each sample
+
+**Implementation Timeline**: Include in Phase 3 (Polish & Documentation), before marking tasks complete
 
 ## Complexity Tracking
 
 > **Fill ONLY if Constitution Check has violations that must be justified**
 
-No violations detected. The Python-specific adaptations are reasonable translations of C++ principles to Python tooling and do not violate the spirit of the constitution.
+No violations requiring justification. All constitution principles are either fully compliant or have clear action items for compliance (Principles VIII and IX require additional documentation and sample verification work, which is planned).
+
+## Phase 0: Research (COMPLETE)
+
+**Status**: ✅ COMPLETE
+
+**Artifacts**: [research.md](research.md)
+
+**Key Decisions**:
+- **Parser Library**: libclang 18.1.1+ selected over tree-sitter, pycparser, cxxheaderparser
+- **Rationale**: Full C++17/C++20 support, semantic analysis capabilities, active maintenance
+- **Graph Library**: networkx for connected component analysis
+- **CLI Framework**: click for command-line interface
+
+## Phase 1: Design & Contracts (COMPLETE)
+
+**Status**: ✅ COMPLETE
+
+**Artifacts**:
+- [data-model.md](data-model.md) - Data structures (Function, CallGraph, FunctionGroup)
+- [contracts/cli-interface.md](contracts/cli-interface.md) - Command-line interface specification
+- [contracts/output-formats.md](contracts/output-formats.md) - JSON, text, DOT output schemas
+- [quickstart.md](quickstart.md) - Developer setup and quickstart guide
+
+**Key Designs**:
+- **Data Model**: Function, SourceLocation, FunctionKind, ParseStatus, CallGraph, FunctionGroup entities
+- **CLI Interface**: `function-grouper [OPTIONS] FILE` with `-f/--format`, `-o/--output`, `-I/--include-path` flags
+- **Output Formats**: JSON (machine-readable), text (human-readable), DOT (visualization)
+
+## Phase 2: Implementation (READY TO START)
+
+**Status**: ⚠️ READY - tasks.md exists, awaiting execution via `/speckit.implement`
+
+**Next Steps**: Run `/speckit.implement` to execute tasks in tasks.md
+
+**Constitution Compliance Notes**:
+1. Before marking tasks complete, ensure Principle IX (Sample-Driven Verification) is satisfied:
+   - Generate sample C++ files
+   - Execute tool against samples
+   - Verify output correctness
+2. Update README.md to satisfy Principle VIII (Comprehensive Documentation):
+   - Add verified runnable examples
+   - Include troubleshooting section
+   - Document all features and use cases
+
+## Summary
+
+This implementation plan is ready for Phase 2 execution. All design artifacts (research, data model, contracts, quickstart) are complete. The plan now includes explicit requirements for:
+
+1. **Documentation Quality (Principle VIII)**: README.md must contain verified runnable samples covering all features
+2. **Sample Verification (Principle IX)**: Before task completion, generate and execute representative samples
+
+These additions ensure compliance with the updated constitution v1.1.0 and improve the quality and usability of the delivered tool.
+
+**Branch**: `001-function-grouper`
+**Implementation Plan**: `/Users/yinghanhung/Projects/AI/cpp-dependency-analysis/specs/001-function-grouper/plan.md`
+**Generated Artifacts**: research.md, data-model.md, contracts/, quickstart.md, tasks.md (all complete)
+**Next Command**: `/speckit.implement` to execute implementation tasks
