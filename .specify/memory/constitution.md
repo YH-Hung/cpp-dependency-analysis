@@ -1,25 +1,30 @@
 <!--
 SYNC IMPACT REPORT
 ==================
-Version Change: None → 1.0.0 (Initial Constitution)
-Constitution Type: MINOR (Initial creation with 7 core principles)
+Version Change: 1.0.0 → 1.1.0 (Added Documentation & Verification Principles)
+Constitution Type: MINOR (Added 2 new principles expanding governance)
 
-Principles Defined:
-- I. Zero-Defect Commitment (NEW)
-- II. Test-Driven Development (NEW)
-- III. Code Quality Standards (NEW)
-- IV. Static Analysis First (NEW)
-- V. Memory Safety (NEW)
-- VI. Build Verification (NEW)
-- VII. Dependency Hygiene (NEW)
+Principles Modified:
+- VIII. Comprehensive Documentation (NEW - added README maintenance requirement)
+- IX. Sample-Driven Verification (NEW - added sample generation and verification requirement)
+
+Added Sections:
+- Principle VIII: Comprehensive Documentation
+- Principle IX: Sample-Driven Verification
+
+Removed Sections: None
 
 Template Sync Status:
 ✅ plan-template.md - Constitution Check section references this file
 ✅ spec-template.md - Aligned with testing/quality requirements
-✅ tasks-template.md - Task categorization reflects principle-driven types
-✅ All command files - No agent-specific overrides needed
+✅ tasks-template.md - Task categorization reflects principle-driven types (should include documentation and sample verification tasks)
+⚠️  README.md - Should be reviewed to ensure it meets new Principle VIII standards
+⚠️  Implementation workflows - Should incorporate Principle IX sample verification before task completion
 
-Follow-up TODOs: None
+Follow-up TODOs:
+- Review README.md for compliance with Principle VIII (comprehensive, runnable samples)
+- Update implementation workflow to include sample generation and verification step (Principle IX)
+- Consider adding documentation quality checks to CI/CD pipeline
 -->
 
 # C++ Dependency Analysis Tool Constitution
@@ -110,6 +115,30 @@ Dependency management rules:
 - Provide fallback/mock for testing without external deps
 
 **Rationale**: Dependency analysis tools should model good dependency hygiene. Fewer dependencies = fewer security risks, easier builds, more reliable software.
+
+### VIII. Comprehensive Documentation
+
+README.md and user-facing documentation MUST be:
+- Comprehensive: Cover all features and use cases
+- Maintained: Updated with every feature change
+- Runnable: Include fully executable code samples
+- Verified: All code samples MUST be tested and working
+- Complete: Include installation, usage, examples, and troubleshooting
+- Accessible: Clear for both beginners and advanced users
+
+**Rationale**: Documentation is the first touchpoint for users. Poor or outdated documentation undermines user trust and adoption. Runnable samples ensure documentation stays synchronized with code and provides immediate value to users evaluating or learning the tool.
+
+### IX. Sample-Driven Verification
+
+Before marking any task complete:
+- MUST generate representative code samples demonstrating the feature
+- MUST actually execute samples against the implementation
+- MUST verify samples produce expected results
+- MUST include samples in documentation or test suite
+- Samples MUST cover typical use cases, not just happy paths
+- Failed sample execution = incomplete implementation
+
+**Rationale**: Sample verification bridges the gap between passing tests and real-world usability. A feature that passes unit tests but fails with realistic examples is not production-ready. Generating and running samples catches integration issues, usability problems, and documentation gaps before release.
 
 ## Testing Standards
 
@@ -213,4 +242,4 @@ Before merge, code MUST:
 
 This constitution evolves with the project. When principles become outdated or overly burdensome, propose amendments. But changes require careful consideration and team consensus.
 
-**Version**: 1.0.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-25
+**Version**: 1.1.0 | **Ratified**: 2025-10-25 | **Last Amended**: 2025-10-27
