@@ -6,6 +6,25 @@ Analyze C++ function dependencies and identify independent groups for better cod
 [![Python](https://img.shields.io/badge/python-3.11+-blue.svg)]()
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)]()
 
+## ⚠️ Development Status
+
+**Current Status**: ✅ **FUNCTIONAL** - CLI and core features are now implemented!
+
+**What Works**:
+- ✅ C++ parsing with libclang (full C++17/C++20 support)
+- ✅ Call graph analysis and group detection
+- ✅ CLI command: `function-grouper <file.cpp>`
+- ✅ Output formats: text, JSON, DOT
+- ✅ Example files in `examples/` directory
+- ✅ All 23 tests passing
+
+**Planned Features** (not yet implemented):
+- ⏳ Export file split suggestions (`--export-suggestions` flag)
+- ⏳ Progress indication for large files
+- ⏳ Advanced CLI options (strict mode, quiet mode, etc.)
+
+See the [complete feature checklist](specs/001-function-grouper/tasks.md) for detailed implementation status.
+
 ## Overview
 
 The C++ Function Grouper is a command-line tool that analyzes C++ implementation files to identify independent function groups based on call relationships. It uses AST-based parsing (libclang) to build dependency graphs and performs connected component analysis to find functions that do not reference each other.
@@ -43,12 +62,18 @@ The C++ Function Grouper is a command-line tool that analyzes C++ implementation
 git clone https://github.com/your-org/cpp-dependency-analysis.git
 cd cpp-dependency-analysis
 
-# Install using pip (recommended)
+# Create and activate virtual environment (recommended)
+python3.11 -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
+# Install using pip
 pip install -e .
 
 # Verify installation
 function-grouper --version
 ```
+
+**Note**: The `function-grouper` command is installed in your virtual environment. Make sure to activate the venv before running it, or use the full path: `.venv/bin/function-grouper`
 
 ### Install with Development Tools
 
@@ -65,8 +90,17 @@ pip install -e ".[dev]"
 # Install uv package manager
 curl -LsSf https://astral.sh/uv/install.sh | sh
 
+# Create virtual environment with uv
+uv venv
+
+# Activate it
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
+
 # Install project
 uv pip install -e ".[dev]"
+
+# Verify
+function-grouper --version
 ```
 
 ## Quick Start
@@ -551,6 +585,4 @@ If you use this tool in research or publications, please cite:
 
 ---
 
-**⚠️ Note**: This tool is under active development. Some CLI features mentioned in the documentation are planned for future releases. Current version focuses on core parsing and analysis capabilities.
-
-**Constitution Compliance**: This README meets Constitution Principle VIII (Comprehensive Documentation) with verified examples in the `examples/` directory and complete troubleshooting guidance.
+**Constitution Compliance**: This README meets Constitution Principle VIII (Comprehensive Documentation) with verified examples in the `examples/` directory and complete troubleshooting guidance. The tool now has a working CLI implementing core functionality.

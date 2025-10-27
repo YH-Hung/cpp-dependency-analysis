@@ -20,7 +20,22 @@ class CallAnalyzer:
         graph = CallGraph()
 
         # First pass: Add all functions to the graph
+        # For overloaded functions, use signature as the unique key
+        seen_names = set()
         for func in functions:
+            # Use signature as unique identifier for overloaded functions
+            unique_name = func.qualified_name
+            if unique_name in seen_names:
+                # Overloaded function - append signature to make it unique
+                unique_name = f"{func.qualified_name}({func.signature.split('(', 1)[1]}"
+
+            seen_names.add(unique_name)
+
+            # Create a modified function with unique qualified_name
+            if unique_name != func.qualified_name:
+                from dataclasses import replace
+                func = replace(func, qualified_name=unique_name)
+
             graph.add_function(func)
 
         # Second pass: Add call edges
