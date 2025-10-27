@@ -90,13 +90,19 @@ logs/
 *.swp
 *~
 
-# Output files
+# Output files (but keep examples and fixtures)
 *.json
 *.txt
 *.dot
 *.png
 *.svg
 !tests/integration/fixtures/*.cpp
+!examples/*.cpp
+!examples/*.json
+!examples/*.txt
+!examples/*.dot
+!examples/*.png
+!examples/README.md
 
 # Performance profiling
 *.stats

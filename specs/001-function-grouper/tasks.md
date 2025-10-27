@@ -292,11 +292,11 @@
 
 ### Sample Creation
 
-- [ ] T155 Create examples/ directory at repository root
-- [ ] T156 [P] Create examples/simple.cpp with 3-5 functions forming 2 independent groups
-- [ ] T157 [P] Create examples/complex.cpp with 10+ functions, circular dependencies, and templates
-- [ ] T158 [P] Create examples/edge_cases.cpp demonstrating recursion, overloads, and lambdas
-- [ ] T159 [P] Create examples/real_world.cpp extracted from actual C++ project (e.g., small utility from open-source code)
+- [X] T155 Create examples/ directory at repository root
+- [X] T156 [P] Create examples/simple.cpp with 3-5 functions forming 2 independent groups
+- [X] T157 [P] Create examples/complex.cpp with 10+ functions, circular dependencies, and templates
+- [X] T158 [P] Create examples/edge_cases.cpp demonstrating recursion, overloads, and lambdas
+- [X] T159 [P] Create examples/real_world.cpp extracted from actual C++ project (e.g., small utility from open-source code)
 
 ### Sample Verification - User Story 1 (Parsing & Grouping)
 
@@ -330,9 +330,9 @@
 
 ### Sample Documentation
 
-- [ ] T178 Create examples/README.md documenting all sample files
-- [ ] T179 Add to examples/README.md: purpose of each sample, expected behavior, how to run
-- [ ] T180 Add to examples/README.md: instructions for generating visualizations from DOT output
+- [X] T178 Create examples/README.md documenting all sample files
+- [X] T179 Add to examples/README.md: purpose of each sample, expected behavior, how to run
+- [X] T180 Add to examples/README.md: instructions for generating visualizations from DOT output
 - [ ] T181 Add sample verification as step in integration tests (reuse samples in tests/integration/)
 
 **Checkpoint**: All samples execute successfully, outputs are verified correct, edge cases handled properly
@@ -347,34 +347,34 @@
 
 ### README.md Enhancement
 
-- [ ] T182 Review existing README.md for completeness per Principle VIII checklist
-- [ ] T183 Add comprehensive installation section with pip install examples (verify runnable)
-- [ ] T184 Add basic usage section with simple examples (copy from verified examples/)
-- [ ] T185 Add advanced usage section demonstrating all output formats (JSON, text, DOT)
-- [ ] T186 Add section demonstrating include paths (-I flag) with real example
-- [ ] T187 Add section demonstrating C++ standard selection (--std flag)
-- [ ] T188 Add error handling examples showing graceful degradation
-- [ ] T189 Add performance characteristics section (10k lines in <30s, <2GB memory)
-- [ ] T190 Add troubleshooting section with common issues and solutions
-- [ ] T191 Add section documenting all success criteria from spec.md
-- [ ] T192 Verify ALL code samples in README.md are executable and produce shown results
+- [X] T182 Review existing README.md for completeness per Principle VIII checklist
+- [X] T183 Add comprehensive installation section with pip install examples (verify runnable)
+- [X] T184 Add basic usage section with simple examples (copy from verified examples/)
+- [X] T185 Add advanced usage section demonstrating all output formats (JSON, text, DOT)
+- [X] T186 Add section demonstrating include paths (-I flag) with real example
+- [X] T187 Add section demonstrating C++ standard selection (--std flag)
+- [X] T188 Add error handling examples showing graceful degradation
+- [X] T189 Add performance characteristics section (10k lines in <30s, <2GB memory)
+- [X] T190 Add troubleshooting section with common issues and solutions
+- [X] T191 Add section documenting all success criteria from spec.md
+- [X] T192 Verify ALL code samples in README.md are executable and produce shown results
 
 ### Troubleshooting Section Content
 
-- [ ] T193 Add troubleshooting entry: "File not found" → Check path, use absolute paths if needed
-- [ ] T194 Add troubleshooting entry: "Parse errors" → Try different --std version, check file is valid C++
-- [ ] T195 Add troubleshooting entry: "Memory exceeded" → File too large, try splitting analysis
-- [ ] T196 Add troubleshooting entry: "Slow parsing" → Check file size, disable progress for speed
-- [ ] T197 Add troubleshooting entry: "Missing functions" → Check include paths with -I flag
+- [X] T193 Add troubleshooting entry: "File not found" → Check path, use absolute paths if needed
+- [X] T194 Add troubleshooting entry: "Parse errors" → Try different --std version, check file is valid C++
+- [X] T195 Add troubleshooting entry: "Memory exceeded" → File too large, try splitting analysis
+- [X] T196 Add troubleshooting entry: "Slow parsing" → Check file size, disable progress for speed
+- [X] T197 Add troubleshooting entry: "Missing functions" → Check include paths with -I flag
 
 ### Additional Documentation
 
 - [ ] T198 [P] Update CONTRIBUTING.md with development workflow, TDD requirements, and constitution compliance
-- [ ] T199 [P] Create examples section in README.md linking to examples/ directory
-- [ ] T200 [P] Add output format examples to README.md (JSON, text, DOT) using verified samples
-- [ ] T201 [P] Add "Features" section to README.md listing all capabilities from spec.md
-- [ ] T202 [P] Add "Limitations" section to README.md documenting known edge cases
-- [ ] T203 Verify documentation stays synchronized with code (all features documented, no outdated examples)
+- [X] T199 [P] Create examples section in README.md linking to examples/ directory
+- [X] T200 [P] Add output format examples to README.md (JSON, text, DOT) using verified samples
+- [X] T201 [P] Add "Features" section to README.md listing all capabilities from spec.md
+- [X] T202 [P] Add "Limitations" section to README.md documenting known edge cases
+- [X] T203 Verify documentation stays synchronized with code (all features documented, no outdated examples)
 
 **Checkpoint**: README.md is comprehensive, all samples verified runnable, troubleshooting complete
 
