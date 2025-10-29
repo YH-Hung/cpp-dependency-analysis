@@ -1,6 +1,5 @@
 """Function grouping analysis using connected components."""
 
-from typing import List
 
 import networkx as nx
 
@@ -10,7 +9,7 @@ from function_grouper.models import CallGraph, FunctionGroup
 class Grouper:
     """Identifies independent function groups using connected component analysis."""
 
-    def find_independent_groups(self, call_graph: CallGraph) -> List[FunctionGroup]:
+    def find_independent_groups(self, call_graph: CallGraph) -> list[FunctionGroup]:
         """Find independent function groups in the call graph.
 
         Args:
@@ -33,7 +32,7 @@ class Grouper:
         components = list(nx.connected_components(undirected))
 
         # Create FunctionGroup objects
-        groups: List[FunctionGroup] = []
+        groups: list[FunctionGroup] = []
         for group_id, component in enumerate(components):
             func_list = list(component)
 

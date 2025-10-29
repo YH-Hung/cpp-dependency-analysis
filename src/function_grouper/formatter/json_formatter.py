@@ -1,14 +1,15 @@
 """JSON formatter for machine-readable output."""
 
 import json
-from typing import List, Dict, Any
+from typing import Any
+
 from function_grouper.models.group import FunctionGroup
 
 
 class JSONFormatter:
     """Format function groups as JSON."""
 
-    def format(self, groups: List[FunctionGroup], source_file: str) -> str:
+    def format(self, groups: list[FunctionGroup], source_file: str) -> str:
         """
         Format function groups as JSON.
 
@@ -23,7 +24,7 @@ class JSONFormatter:
         total_functions = sum(len(group.functions) for group in groups)
         total_edges = sum(group.internal_edges for group in groups)
 
-        output: Dict[str, Any] = {
+        output: dict[str, Any] = {
             "metadata": {
                 "source_file": source_file,
                 "total_functions": total_functions,
@@ -37,7 +38,7 @@ class JSONFormatter:
         for i, group in enumerate(groups, 1):
             group_data = {
                 "group_id": i,
-                "functions": sorted(list(group.functions)),
+                "functions": sorted(group.functions),
                 "is_independent": group.is_independent,
                 "internal_edges": group.internal_edges,
                 "external_edges": group.external_edges,

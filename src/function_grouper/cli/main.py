@@ -2,16 +2,15 @@
 
 import sys
 from pathlib import Path
-from typing import Optional
 
 import click
 
-from function_grouper.parser.cpp_parser import CppParser
 from function_grouper.analyzer.call_analyzer import CallAnalyzer
 from function_grouper.analyzer.grouper import Grouper
-from function_grouper.formatter.text_formatter import TextFormatter
-from function_grouper.formatter.json_formatter import JSONFormatter
 from function_grouper.formatter.dot_formatter import DOTFormatter
+from function_grouper.formatter.json_formatter import JSONFormatter
+from function_grouper.formatter.text_formatter import TextFormatter
+from function_grouper.parser.cpp_parser import CppParser
 
 
 @click.command()
@@ -68,7 +67,7 @@ from function_grouper.formatter.dot_formatter import DOTFormatter
 def main(
     input_file: str,
     format: str,
-    output: Optional[str],
+    output: str | None,
     std: str,
     include_paths: tuple,
     verbose: int,

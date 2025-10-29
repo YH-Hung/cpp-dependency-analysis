@@ -1,6 +1,5 @@
 """Call graph analysis and construction."""
 
-from typing import List
 
 from function_grouper.models import CallGraph, Function
 
@@ -8,7 +7,7 @@ from function_grouper.models import CallGraph, Function
 class CallAnalyzer:
     """Analyzes function calls and builds call graphs."""
 
-    def build_call_graph(self, functions: List[Function]) -> CallGraph:
+    def build_call_graph(self, functions: list[Function]) -> CallGraph:
         """Build a call graph from a list of functions.
 
         Args:

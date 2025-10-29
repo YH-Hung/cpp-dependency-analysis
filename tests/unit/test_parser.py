@@ -4,7 +4,7 @@ from pathlib import Path
 
 import pytest
 
-from function_grouper.models import Function, FunctionKind, ParseStatus
+from function_grouper.models import FunctionKind, ParseStatus
 from function_grouper.parser.cpp_parser import CppParser
 
 
@@ -119,5 +119,5 @@ void func3() {}
     def test_parse_file_with_invalid_path_raises_error(self) -> None:
         """Test that parsing non-existent file raises appropriate error."""
         parser = CppParser()
-        with pytest.raises(Exception):  # Should raise FileNotFoundError or similar
+        with pytest.raises((FileNotFoundError, ValueError, RuntimeError)):
             parser.parse_file("/nonexistent/path/to/file.cpp")

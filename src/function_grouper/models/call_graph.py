@@ -2,7 +2,6 @@
 
 from dataclasses import dataclass, field
 from datetime import datetime
-from typing import Dict, List, Optional
 
 import networkx as nx
 
@@ -16,7 +15,7 @@ class CallEdge:
     caller: str
     callee: str
     call_count: int = 1
-    call_locations: List[SourceLocation] = field(default_factory=list)
+    call_locations: list[SourceLocation] = field(default_factory=list)
 
     def __post_init__(self) -> None:
         """Validate call edge attributes."""
@@ -65,10 +64,10 @@ class CallGraph:
 
     def __init__(self) -> None:
         """Initialize an empty call graph."""
-        self.functions: Dict[str, Function] = {}
-        self.edges: List[CallEdge] = []
+        self.functions: dict[str, Function] = {}
+        self.edges: list[CallEdge] = []
         self._graph: nx.DiGraph = nx.DiGraph()
-        self.metadata: Optional[GraphMetadata] = None
+        self.metadata: GraphMetadata | None = None
 
     def add_function(self, func: Function) -> None:
         """Add a function node to the graph."""
@@ -77,7 +76,7 @@ class CallGraph:
         self.functions[func.qualified_name] = func
         self._graph.add_node(func.qualified_name)
 
-    def add_call(self, caller: str, callee: str, location: Optional[SourceLocation] = None) -> None:
+    def add_call(self, caller: str, callee: str, location: SourceLocation | None = None) -> None:
         """Add a directed edge from caller to callee."""
         if caller not in self.functions:
             raise ValueError(f"Caller function {caller} not found in graph")
@@ -86,7 +85,9 @@ class CallGraph:
             return
 
         # Check if edge already exists
-        existing_edge = next((e for e in self.edges if e.caller == caller and e.callee == callee), None)
+        existing_edge = next(
+            (e for e in self.edges if e.caller == caller and e.callee == callee), None
+        )
 
         if existing_edge:
             existing_edge.call_count += 1
@@ -98,13 +99,13 @@ class CallGraph:
             self.edges.append(edge)
             self._graph.add_edge(caller, callee)
 
-    def get_callers(self, func_name: str) -> List[str]:
+    def get_callers(self, func_name: str) -> list[str]:
         """Get all functions that call the specified function."""
         if func_name not in self.functions:
             raise ValueError(f"Function {func_name} not found in graph")
         return list(self._graph.predecessors(func_name))
 
-    def get_callees(self, func_name: str) -> List[str]:
+    def get_callees(self, func_name: str) -> list[str]:
         """Get all functions called by the specified function."""
         if func_name not in self.functions:
             raise ValueError(f"Function {func_name} not found in graph")
@@ -118,7 +119,7 @@ class CallGraph:
         except nx.NetworkXNoCycle:
             return False
 
-    def find_cycles(self) -> List[List[str]]:
+    def find_cycles(self) -> list[list[str]]:
         """Return all cycles in the graph."""
         try:
             cycles = list(nx.simple_cycles(self._graph))

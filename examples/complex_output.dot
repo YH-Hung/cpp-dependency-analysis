@@ -1,0 +1,91 @@
+digraph function_dependencies {
+  rankdir=LR;
+  node [shape=box];
+
+  // Functions
+  "add" [label="add"];
+  "functionA" [label="functionA"];
+  "functionB" [label="functionB"];
+  "functionC" [label="functionC"];
+  "functionD" [label="functionD"];
+  "functionE" [label="functionE"];
+  "multiply" [label="multiply"];
+  "process" [label="process"];
+  "process(const int &)" [label="process(const int &)"];
+  "process(double)" [label="process(double)"];
+  "standaloneComplex" [label="standaloneComplex"];
+
+  // Function calls
+  "functionA" -> "functionB";
+  "functionB" -> "functionA";
+  "functionD" -> "functionE";
+  "functionC" -> "functionD";
+
+  // Group 1
+  subgraph cluster_1 {
+    label="Group 1";
+    style=filled;
+    color=lightcoral;
+    "functionA";
+    "functionB";
+  }
+
+  // Group 2
+  subgraph cluster_2 {
+    label="Group 2";
+    style=filled;
+    color=lightgrey;
+    "add";
+  }
+
+  // Group 3
+  subgraph cluster_3 {
+    label="Group 3";
+    style=filled;
+    color=lightgrey;
+    "multiply";
+  }
+
+  // Group 4
+  subgraph cluster_4 {
+    label="Group 4";
+    style=filled;
+    color=lightgrey;
+    "process";
+  }
+
+  // Group 5
+  subgraph cluster_5 {
+    label="Group 5";
+    style=filled;
+    color=lightgrey;
+    "process(double)";
+  }
+
+  // Group 6
+  subgraph cluster_6 {
+    label="Group 6";
+    style=filled;
+    color=lightgrey;
+    "process(const int &)";
+  }
+
+  // Group 7
+  subgraph cluster_7 {
+    label="Group 7";
+    style=filled;
+    color=lightgrey;
+    "functionC";
+    "functionD";
+    "functionE";
+  }
+
+  // Group 8
+  subgraph cluster_8 {
+    label="Group 8";
+    style=filled;
+    color=lightgrey;
+    "standaloneComplex";
+  }
+
+}

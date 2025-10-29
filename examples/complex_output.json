@@ -1,0 +1,93 @@
+{
+  "metadata": {
+    "source_file": "examples/complex.cpp",
+    "total_functions": 11,
+    "total_groups": 8,
+    "total_call_edges": 4
+  },
+  "groups": [
+    {
+      "group_id": 1,
+      "functions": [
+        "functionA",
+        "functionB"
+      ],
+      "is_independent": true,
+      "internal_edges": 2,
+      "external_edges": 0,
+      "has_cycles": true
+    },
+    {
+      "group_id": 2,
+      "functions": [
+        "add"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 3,
+      "functions": [
+        "multiply"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 4,
+      "functions": [
+        "process"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 5,
+      "functions": [
+        "process(double)"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 6,
+      "functions": [
+        "process(const int &)"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 7,
+      "functions": [
+        "functionC",
+        "functionD",
+        "functionE"
+      ],
+      "is_independent": true,
+      "internal_edges": 2,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 8,
+      "functions": [
+        "standaloneComplex"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    }
+  ]
+}

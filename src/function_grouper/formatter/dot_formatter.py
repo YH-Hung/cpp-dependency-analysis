@@ -1,8 +1,8 @@
 """DOT formatter for Graphviz visualization."""
 
-from typing import List, Set
-from function_grouper.models.group import FunctionGroup
+
 from function_grouper.models.call_graph import CallGraph
+from function_grouper.models.group import FunctionGroup
 
 
 class DOTFormatter:
@@ -10,7 +10,7 @@ class DOTFormatter:
 
     def format(
         self,
-        groups: List[FunctionGroup],
+        groups: list[FunctionGroup],
         call_graph: CallGraph,
         source_file: str
     ) -> str:
@@ -32,7 +32,7 @@ class DOTFormatter:
         lines.append("")
 
         # Create nodes for all functions
-        all_functions: Set[str] = set()
+        all_functions: set[str] = set()
         for group in groups:
             all_functions.update(group.functions)
 

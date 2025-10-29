@@ -1,13 +1,13 @@
 """Text formatter for human-readable output."""
 
-from typing import List
+
 from function_grouper.models.group import FunctionGroup
 
 
 class TextFormatter:
     """Format function groups as human-readable text."""
 
-    def format(self, groups: List[FunctionGroup], source_file: str) -> str:
+    def format(self, groups: list[FunctionGroup], source_file: str) -> str:
         """
         Format function groups as text.
 
@@ -48,7 +48,7 @@ class TextFormatter:
                 lines.append(f"  External calls: {group.external_edges}")
 
             if group.has_cycles:
-                lines.append(f"  ⚠️  Contains circular dependencies")
+                lines.append("  ⚠️  Contains circular dependencies")
 
             lines.append("")
 

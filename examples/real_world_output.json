@@ -1,0 +1,130 @@
+{
+  "metadata": {
+    "source_file": "examples/real_world.cpp",
+    "total_functions": 12,
+    "total_groups": 12,
+    "total_call_edges": 0
+  },
+  "groups": [
+    {
+      "group_id": 1,
+      "functions": [
+        "isWhitespace"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 2,
+      "functions": [
+        "trimLeft"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 3,
+      "functions": [
+        "trimRight"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 4,
+      "functions": [
+        "trim"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 5,
+      "functions": [
+        "split"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 6,
+      "functions": [
+        "join"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 7,
+      "functions": [
+        "toLowerCase"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 8,
+      "functions": [
+        "toUpperCase"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 9,
+      "functions": [
+        "startsWith"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 10,
+      "functions": [
+        "endsWith"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 11,
+      "functions": [
+        "contains"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 12,
+      "functions": [
+        "replace"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    }
+  ]
+}

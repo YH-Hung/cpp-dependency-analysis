@@ -1,6 +1,5 @@
 """Function extractor helper for parsing C++ AST."""
 
-from typing import List, Set
 
 from clang.cindex import Cursor, CursorKind
 
@@ -17,10 +16,10 @@ class FunctionExtractor:
             source_file: Path to the source file being parsed
         """
         self.source_file = source_file
-        self.functions: List[Function] = []
-        self.function_names: Set[str] = set()
+        self.functions: list[Function] = []
+        self.function_names: set[str] = set()
 
-    def extract_functions(self, cursor: Cursor) -> List[Function]:
+    def extract_functions(self, cursor: Cursor) -> list[Function]:
         """Extract all function definitions from the AST.
 
         Args:
@@ -192,7 +191,7 @@ class FunctionExtractor:
 
         return "::".join(parts)
 
-    def _extract_calls(self, cursor: Cursor) -> List[str]:
+    def _extract_calls(self, cursor: Cursor) -> list[str]:
         """Extract function calls from within a function body.
 
         Args:
@@ -201,11 +200,11 @@ class FunctionExtractor:
         Returns:
             List of qualified names of called functions
         """
-        calls: List[str] = []
+        calls: list[str] = []
         self._find_calls_recursive(cursor, calls)
         return calls
 
-    def _find_calls_recursive(self, cursor: Cursor, calls: List[str]) -> None:
+    def _find_calls_recursive(self, cursor: Cursor, calls: list[str]) -> None:
         """Recursively find all CALL_EXPR nodes.
 
         Args:

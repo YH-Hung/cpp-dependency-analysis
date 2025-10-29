@@ -1,0 +1,16 @@
+=== C++ Function Grouper Analysis ===
+
+File: examples/simple.cpp
+Total Functions: 3
+Function Groups: 2
+
+--- Function Groups ---
+
+Group 1 (1 function)
+  independentFunction
+  Internal calls: 0
+
+Group 2 (2 functions)
+  helper
+  process
+  Internal calls: 1

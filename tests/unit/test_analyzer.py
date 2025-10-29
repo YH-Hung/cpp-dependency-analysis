@@ -6,7 +6,6 @@ from function_grouper.models import (
     CallGraph,
     Function,
     FunctionKind,
-    ParseStatus,
     SourceLocation,
 )
 

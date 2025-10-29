@@ -1,0 +1,154 @@
+{
+  "metadata": {
+    "source_file": "examples/edge_cases.cpp",
+    "total_functions": 18,
+    "total_groups": 14,
+    "total_call_edges": 6
+  },
+  "groups": [
+    {
+      "group_id": 1,
+      "functions": [
+        "factorial"
+      ],
+      "is_independent": true,
+      "internal_edges": 1,
+      "external_edges": 0,
+      "has_cycles": true
+    },
+    {
+      "group_id": 2,
+      "functions": [
+        "isEven",
+        "isOdd"
+      ],
+      "is_independent": true,
+      "internal_edges": 2,
+      "external_edges": 0,
+      "has_cycles": true
+    },
+    {
+      "group_id": 3,
+      "functions": [
+        "print"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 4,
+      "functions": [
+        "print(double)"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 5,
+      "functions": [
+        "print(const char *)"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 6,
+      "functions": [
+        "useLambdas"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 7,
+      "functions": [
+        "Counter::Counter",
+        "Counter::operator++"
+      ],
+      "is_independent": true,
+      "internal_edges": 1,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 8,
+      "functions": [
+        "Counter::operator++(int)"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 9,
+      "functions": [
+        "Counter::operator=="
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 10,
+      "functions": [
+        "processWithCallback"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 11,
+      "functions": [
+        "myCallback"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 12,
+      "functions": [
+        "useCallback"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 13,
+      "functions": [
+        "Utility::memberFunction",
+        "Utility::staticFunction"
+      ],
+      "is_independent": true,
+      "internal_edges": 1,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 14,
+      "functions": [
+        "square",
+        "useInline"
+      ],
+      "is_independent": true,
+      "internal_edges": 1,
+      "external_edges": 0,
+      "has_cycles": false
+    }
+  ]
+}

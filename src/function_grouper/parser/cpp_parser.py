@@ -1,9 +1,8 @@
 """C++ parser using libclang."""
 
 import os
-from typing import List, Optional
 
-from clang.cindex import Cursor, CursorKind, Index, TranslationUnit
+from clang.cindex import Index, TranslationUnit
 
 from function_grouper.models import Function
 from function_grouper.parser.function_extractor import FunctionExtractor
@@ -20,7 +19,7 @@ class CppParser:
         """
         self.index: Index = Index.create()
         self.std_version = std_version
-        self.include_paths: List[str] = []
+        self.include_paths: list[str] = []
 
     def add_include_path(self, path: str) -> None:
         """Add an include path for parsing.
@@ -34,8 +33,8 @@ class CppParser:
     def parse_file(
         self,
         file_path: str,
-        std_version: Optional[str] = None,
-    ) -> List[Function]:
+        std_version: str | None = None,
+    ) -> list[Function]:
         """Parse a C++ file and extract all function definitions.
 
         Args:

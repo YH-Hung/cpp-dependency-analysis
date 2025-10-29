@@ -1,0 +1,55 @@
+=== C++ Function Grouper Analysis ===
+
+File: examples/real_world.cpp
+Total Functions: 12
+Function Groups: 12
+
+--- Function Groups ---
+
+Group 1 (1 function)
+  isWhitespace
+  Internal calls: 0
+
+Group 2 (1 function)
+  trimLeft
+  Internal calls: 0
+
+Group 3 (1 function)
+  trimRight
+  Internal calls: 0
+
+Group 4 (1 function)
+  trim
+  Internal calls: 0
+
+Group 5 (1 function)
+  split
+  Internal calls: 0
+
+Group 6 (1 function)
+  join
+  Internal calls: 0
+
+Group 7 (1 function)
+  toLowerCase
+  Internal calls: 0
+
+Group 8 (1 function)
+  toUpperCase
+  Internal calls: 0
+
+Group 9 (1 function)
+  startsWith
+  Internal calls: 0
+
+Group 10 (1 function)
+  endsWith
+  Internal calls: 0
+
+Group 11 (1 function)
+  contains
+  Internal calls: 0
+
+Group 12 (1 function)
+  replace
+  Internal calls: 0

@@ -1,15 +1,16 @@
 """Data models for function groups."""
 
 from dataclasses import dataclass, field
-from typing import List
 
 
 @dataclass
 class FunctionGroup:
-    """Represents a collection of functions connected through direct or indirect call relationships."""
+    """
+    Represents a collection of functions connected through direct/indirect calls.
+    """
 
     group_id: int
-    functions: List[str] = field(default_factory=list)
+    functions: list[str] = field(default_factory=list)
     is_independent: bool = False
     internal_edges: int = 0
     external_edges: int = 0

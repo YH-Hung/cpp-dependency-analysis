@@ -1,0 +1,31 @@
+{
+  "metadata": {
+    "source_file": "examples/simple.cpp",
+    "total_functions": 3,
+    "total_groups": 2,
+    "total_call_edges": 1
+  },
+  "groups": [
+    {
+      "group_id": 1,
+      "functions": [
+        "independentFunction"
+      ],
+      "is_independent": true,
+      "internal_edges": 0,
+      "external_edges": 0,
+      "has_cycles": false
+    },
+    {
+      "group_id": 2,
+      "functions": [
+        "helper",
+        "process"
+      ],
+      "is_independent": true,
+      "internal_edges": 1,
+      "external_edges": 0,
+      "has_cycles": false
+    }
+  ]
+}

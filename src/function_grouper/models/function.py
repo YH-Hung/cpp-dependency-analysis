@@ -2,7 +2,6 @@
 
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import List, Optional
 
 
 class FunctionKind(Enum):
@@ -34,7 +33,7 @@ class SourceLocation:
     file_path: str
     line_number: int
     column_number: int
-    end_line_number: Optional[int] = None
+    end_line_number: int | None = None
 
     def __post_init__(self) -> None:
         """Validate source location attributes."""
@@ -58,9 +57,9 @@ class Function:
     signature: str
     location: SourceLocation
     kind: FunctionKind
-    calls: List[str] = field(default_factory=list)
+    calls: list[str] = field(default_factory=list)
     parse_status: ParseStatus = ParseStatus.SUCCESS
-    error_message: Optional[str] = None
+    error_message: str | None = None
 
     def __post_init__(self) -> None:
         """Validate function attributes."""
