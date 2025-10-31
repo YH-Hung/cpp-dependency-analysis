@@ -300,33 +300,33 @@
 
 ### Sample Verification - User Story 1 (Parsing & Grouping)
 
-- [ ] T160 Run function-grouper on examples/simple.cpp and capture output
-- [ ] T161 Verify examples/simple.cpp output correctly identifies 2 independent groups
-- [ ] T162 Validate examples/simple.cpp JSON output against schema in contracts/
-- [ ] T163 Save verified output as examples/simple_output.json
-- [ ] T164 Save verified output as examples/simple_output.txt
+- [X] T160 Run function-grouper on examples/simple.cpp and capture output
+- [X] T161 Verify examples/simple.cpp output correctly identifies 2 independent groups
+- [X] T162 Validate examples/simple.cpp JSON output against schema in contracts/
+- [X] T163 Save verified output as examples/simple_output.json
+- [X] T164 Save verified output as examples/simple_output.txt
 
 ### Sample Verification - User Story 2 (Visualization)
 
-- [ ] T165 Run function-grouper -f json on examples/complex.cpp and verify JSON schema compliance
-- [ ] T166 Run function-grouper -f dot on examples/complex.cpp and verify Graphviz can parse output
-- [ ] T167 Generate visualization: dot -Tpng examples/complex_output.dot -o examples/complex_graph.png
-- [ ] T168 Verify examples/complex.cpp correctly reports circular dependencies
-- [ ] T169 Save verified outputs as examples/complex_output.json, examples/complex_output.txt, examples/complex_output.dot
+- [X] T165 Run function-grouper -f json on examples/complex.cpp and verify JSON schema compliance
+- [X] T166 Run function-grouper -f dot on examples/complex.cpp and verify Graphviz can parse output
+- [X] T167 Generate visualization: dot -Tpng examples/complex_output.dot -o examples/complex_graph.png
+- [X] T168 Verify examples/complex.cpp correctly reports circular dependencies
+- [X] T169 Save verified outputs as examples/complex_output.json, examples/complex_output.txt, examples/complex_output.dot
 
 ### Sample Verification - User Story 3 (Export)
 
-- [ ] T170 Run function-grouper --export-suggestions on examples/complex.cpp
-- [ ] T171 Verify export suggestions include reasonable file names for each group
-- [ ] T172 Verify export suggestions identify required headers for each group
-- [ ] T173 Verify warnings about imbalanced groups appear when appropriate
+- [X] T170 Run function-grouper --export-suggestions on examples/complex.cpp
+- [X] T171 Verify export suggestions include reasonable file names for each group
+- [X] T172 Verify export suggestions identify required headers for each group
+- [X] T173 Verify warnings about imbalanced groups appear when appropriate
 
 ### Sample Verification - Edge Cases
 
-- [ ] T174 Run function-grouper on examples/edge_cases.cpp and verify recursion handling
-- [ ] T175 Verify function overloads are correctly distinguished
-- [ ] T176 Verify lambdas are correctly identified and grouped
-- [ ] T177 Verify template functions are handled per FR-007
+- [X] T174 Run function-grouper on examples/edge_cases.cpp and verify recursion handling
+- [X] T175 Verify function overloads are correctly distinguished
+- [X] T176 Verify lambdas are correctly identified and grouped
+- [X] T177 Verify template functions are handled per FR-007
 
 ### Sample Documentation
 
@@ -369,7 +369,7 @@
 
 ### Additional Documentation
 
-- [ ] T198 [P] Update CONTRIBUTING.md with development workflow, TDD requirements, and constitution compliance
+- [X] T198 [P] Update CONTRIBUTING.md with development workflow, TDD requirements, and constitution compliance
 - [X] T199 [P] Create examples section in README.md linking to examples/ directory
 - [X] T200 [P] Add output format examples to README.md (JSON, text, DOT) using verified samples
 - [X] T201 [P] Add "Features" section to README.md listing all capabilities from spec.md

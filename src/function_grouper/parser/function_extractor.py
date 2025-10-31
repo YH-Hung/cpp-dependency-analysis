@@ -167,7 +167,7 @@ class FunctionExtractor:
         Returns:
             Fully qualified name (e.g., "Namespace::Class::method")
         """
-        parts = []
+        parts: list[str] = []
         current = cursor
 
         # Walk up the semantic parent chain
@@ -187,7 +187,7 @@ class FunctionExtractor:
             current = current.semantic_parent
 
         if not parts:
-            return cursor.spelling
+            return str(cursor.spelling)
 
         return "::".join(parts)
 

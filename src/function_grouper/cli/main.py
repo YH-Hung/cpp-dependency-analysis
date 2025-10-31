@@ -13,6 +13,14 @@ from function_grouper.formatter.text_formatter import TextFormatter
 from function_grouper.parser.cpp_parser import CppParser
 
 
+def version_callback(ctx: click.Context, param: click.Parameter, value: bool) -> None:
+    """Version callback for --version flag."""
+    if value:
+        click.echo("function-grouper version 1.0.0")
+        click.echo(f"Python version: {sys.version.split()[0]}")
+        ctx.exit()
+
+
 @click.command()
 @click.argument(
     "input_file",
@@ -57,11 +65,7 @@ from function_grouper.parser.cpp_parser import CppParser
     is_flag=True,
     is_eager=True,
     expose_value=False,
-    callback=lambda ctx, param, value: (
-        click.echo("function-grouper version 1.0.0"),
-        click.echo(f"Python version: {sys.version.split()[0]}"),
-        ctx.exit()
-    ) if value else None,
+    callback=version_callback,
     help="Show version and exit",
 )
 def main(
@@ -69,7 +73,7 @@ def main(
     format: str,
     output: str | None,
     std: str,
-    include_paths: tuple,
+    include_paths: tuple[str, ...],
     verbose: int,
 ) -> None:
     """
@@ -116,15 +120,16 @@ def main(
         if verbose > 1:
             click.echo(f"Formatting output as {format}...", err=True)
 
+        result: str
         if format == "text":
             formatter = TextFormatter()
             result = formatter.format(groups, input_file)
         elif format == "json":
-            formatter = JSONFormatter()
-            result = formatter.format(groups, input_file)
+            json_formatter = JSONFormatter()
+            result = json_formatter.format(groups, input_file)
         elif format == "dot":
-            formatter = DOTFormatter()
-            result = formatter.format(groups, call_graph, input_file)
+            dot_formatter = DOTFormatter()
+            result = dot_formatter.format(groups, call_graph, input_file)
         else:
             click.echo(f"Error: Unknown format '{format}'", err=True)
             sys.exit(1)
@@ -150,4 +155,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main()
+    main()  # type: ignore[call-arg]
