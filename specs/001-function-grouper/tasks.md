@@ -29,16 +29,16 @@
 
 **Purpose**: Project initialization and basic structure
 
-- [ ] T001 Create project directory structure (src/function_grouper/, tests/, .github/workflows/)
-- [ ] T002 Initialize uv project with pyproject.toml configuration for Python 3.11+
-- [ ] T003 Add core dependencies to pyproject.toml: libclang>=18.1.1, click>=8.1.0, networkx>=3.0
-- [ ] T004 [P] Add dev dependencies to pyproject.toml: pytest, pytest-cov, pytest-benchmark, mypy, ruff, memory-profiler
-- [ ] T005 [P] Create .python-version file specifying Python 3.11
-- [ ] T006 [P] Configure ruff linting settings in pyproject.toml (line-length=100, target-version=py311)
-- [ ] T007 [P] Configure mypy type checking in pyproject.toml (strict mode, Python 3.11)
-- [ ] T008 [P] Configure pytest settings in pyproject.toml (testpaths, coverage options)
-- [ ] T009 [P] Create src/function_grouper/__init__.py
-- [ ] T010 [P] Create tests/__init__.py and tests/conftest.py for pytest fixtures
+- [X] T001 Create project directory structure (src/function_grouper/, tests/, .github/workflows/)
+- [X] T002 Initialize uv project with pyproject.toml configuration for Python 3.11+
+- [X] T003 Add core dependencies to pyproject.toml: libclang>=18.1.1, click>=8.1.0, networkx>=3.0
+- [X] T004 [P] Add dev dependencies to pyproject.toml: pytest, pytest-cov, pytest-benchmark, mypy, ruff, memory-profiler
+- [X] T005 [P] Create .python-version file specifying Python 3.11
+- [X] T006 [P] Configure ruff linting settings in pyproject.toml (line-length=100, target-version=py311)
+- [X] T007 [P] Configure mypy type checking in pyproject.toml (strict mode, Python 3.11)
+- [X] T008 [P] Configure pytest settings in pyproject.toml (testpaths, coverage options)
+- [X] T009 [P] Create src/function_grouper/__init__.py
+- [X] T010 [P] Create tests/__init__.py and tests/conftest.py for pytest fixtures
 
 ---
 
@@ -48,19 +48,19 @@
 
 **⚠️ CRITICAL**: No user story work can begin until this phase is complete
 
-- [ ] T011 [P] Create FunctionKind enum in src/function_grouper/models/function.py
-- [ ] T012 [P] Create ParseStatus enum in src/function_grouper/models/function.py
-- [ ] T013 Create SourceLocation dataclass in src/function_grouper/models/function.py
-- [ ] T014 Create Function dataclass in src/function_grouper/models/function.py with all attributes from data-model.md
-- [ ] T015 [P] Create CallEdge dataclass in src/function_grouper/models/call_graph.py
-- [ ] T016 Create CallGraph class in src/function_grouper/models/call_graph.py with graph manipulation methods
-- [ ] T017 [P] Create FunctionGroup dataclass in src/function_grouper/models/group.py
-- [ ] T018 [P] Create GraphMetadata dataclass in src/function_grouper/models/call_graph.py
-- [ ] T019 [P] Create src/function_grouper/models/__init__.py exporting all model classes
-- [ ] T020 [P] Create test fixtures directory tests/integration/fixtures/
-- [ ] T021 [P] Create simple_independent.cpp test fixture in tests/integration/fixtures/
-- [ ] T022 [P] Create complex_dependencies.cpp test fixture in tests/integration/fixtures/
-- [ ] T023 [P] Create circular_deps.cpp test fixture in tests/integration/fixtures/
+- [X] T011 [P] Create FunctionKind enum in src/function_grouper/models/function.py
+- [X] T012 [P] Create ParseStatus enum in src/function_grouper/models/function.py
+- [X] T013 Create SourceLocation dataclass in src/function_grouper/models/function.py
+- [X] T014 Create Function dataclass in src/function_grouper/models/function.py with all attributes from data-model.md
+- [X] T015 [P] Create CallEdge dataclass in src/function_grouper/models/call_graph.py
+- [X] T016 Create CallGraph class in src/function_grouper/models/call_graph.py with graph manipulation methods
+- [X] T017 [P] Create FunctionGroup dataclass in src/function_grouper/models/group.py
+- [X] T018 [P] Create GraphMetadata dataclass in src/function_grouper/models/call_graph.py
+- [X] T019 [P] Create src/function_grouper/models/__init__.py exporting all model classes
+- [X] T020 [P] Create test fixtures directory tests/integration/fixtures/
+- [X] T021 [P] Create simple_independent.cpp test fixture in tests/integration/fixtures/
+- [X] T022 [P] Create complex_dependencies.cpp test fixture in tests/integration/fixtures/
+- [X] T023 [P] Create circular_deps.cpp test fixture in tests/integration/fixtures/
 
 **Checkpoint**: Foundation ready - user story implementation can now begin in parallel
 
@@ -74,43 +74,43 @@
 
 ### Tests for User Story 1 - Write FIRST, ensure they FAIL before implementation
 
-- [ ] T024 [P] [US1] Unit test for CppParser.parse_file() with simple function in tests/unit/test_parser.py
-- [ ] T025 [P] [US1] Unit test for CppParser extracting function names and signatures in tests/unit/test_parser.py
-- [ ] T026 [P] [US1] Unit test for CppParser identifying function calls in tests/unit/test_parser.py
-- [ ] T027 [P] [US1] Unit test for CallGraph.add_function() in tests/unit/test_analyzer.py
-- [ ] T028 [P] [US1] Unit test for CallGraph.add_call() in tests/unit/test_analyzer.py
-- [ ] T029 [P] [US1] Unit test for Grouper.find_connected_components() in tests/unit/test_grouper.py
-- [ ] T030 [P] [US1] Integration test for end-to-end analysis with simple_independent.cpp in tests/integration/test_end_to_end.py
-- [ ] T031 [P] [US1] Integration test for end-to-end analysis with complex_dependencies.cpp in tests/integration/test_end_to_end.py
+- [X] T024 [P] [US1] Unit test for CppParser.parse_file() with simple function in tests/unit/test_parser.py
+- [X] T025 [P] [US1] Unit test for CppParser extracting function names and signatures in tests/unit/test_parser.py
+- [X] T026 [P] [US1] Unit test for CppParser identifying function calls in tests/unit/test_parser.py
+- [X] T027 [P] [US1] Unit test for CallGraph.add_function() in tests/unit/test_analyzer.py
+- [X] T028 [P] [US1] Unit test for CallGraph.add_call() in tests/unit/test_analyzer.py
+- [X] T029 [P] [US1] Unit test for Grouper.find_connected_components() in tests/unit/test_grouper.py
+- [X] T030 [P] [US1] Integration test for end-to-end analysis with simple_independent.cpp in tests/integration/test_end_to_end.py
+- [X] T031 [P] [US1] Integration test for end-to-end analysis with complex_dependencies.cpp in tests/integration/test_end_to_end.py
 
 ### Implementation for User Story 1
 
-- [ ] T032 [P] [US1] Create CppParser class skeleton in src/function_grouper/parser/cpp_parser.py
-- [ ] T033 [P] [US1] Create FunctionExtractor helper class in src/function_grouper/parser/function_extractor.py
-- [ ] T034 [US1] Implement CppParser.__init__() with libclang Index creation
-- [ ] T035 [US1] Implement CppParser.parse_file() to create translation unit with args from CLI
-- [ ] T036 [US1] Implement FunctionExtractor.extract_functions() to traverse AST and find FUNCTION_DECL nodes
-- [ ] T037 [US1] Implement FunctionExtractor._determine_function_kind() to classify function types (free, member, static, etc.)
-- [ ] T038 [US1] Implement FunctionExtractor._extract_calls() to find CALL_EXPR nodes within function bodies
-- [ ] T039 [US1] Implement FunctionExtractor._build_qualified_name() to handle namespaces and classes
-- [ ] T040 [US1] Add error handling for parse failures in CppParser (graceful degradation per FR-014)
-- [ ] T041 [P] [US1] Create src/function_grouper/parser/__init__.py exporting CppParser
-- [ ] T042 [P] [US1] Create CallAnalyzer class in src/function_grouper/analyzer/call_analyzer.py
-- [ ] T043 [US1] Implement CallAnalyzer.build_call_graph() to convert Function list to CallGraph
-- [ ] T044 [US1] Implement CallGraph.get_callers() method
-- [ ] T045 [US1] Implement CallGraph.get_callees() method
-- [ ] T046 [US1] Implement CallGraph.has_cycle() using networkx cycle detection
-- [ ] T047 [US1] Implement CallGraph.find_cycles() using networkx algorithms
-- [ ] T048 [P] [US1] Create Grouper class in src/function_grouper/analyzer/grouper.py
-- [ ] T049 [US1] Implement Grouper.find_independent_groups() using networkx.connected_components()
-- [ ] T050 [US1] Implement Grouper._compute_group_statistics() to populate internal_edges, external_edges, has_cycles
-- [ ] T051 [US1] Implement Grouper._check_independence() to determine is_independent flag
-- [ ] T052 [P] [US1] Create src/function_grouper/analyzer/__init__.py exporting analyzer classes
-- [ ] T053 [US1] Add validation in CallGraph to ensure all edges reference existing functions
-- [ ] T054 [US1] Add validation to handle function overloading correctly (FR-006)
-- [ ] T055 [US1] Add handling for recursive functions (FR-011)
-- [ ] T056 [US1] Add handling for template functions (FR-007)
-- [ ] T057 [US1] Add handling for member functions and free functions (FR-009)
+- [X] T032 [P] [US1] Create CppParser class skeleton in src/function_grouper/parser/cpp_parser.py
+- [X] T033 [P] [US1] Create FunctionExtractor helper class in src/function_grouper/parser/function_extractor.py
+- [X] T034 [US1] Implement CppParser.__init__() with libclang Index creation
+- [X] T035 [US1] Implement CppParser.parse_file() to create translation unit with args from CLI
+- [X] T036 [US1] Implement FunctionExtractor.extract_functions() to traverse AST and find FUNCTION_DECL nodes
+- [X] T037 [US1] Implement FunctionExtractor._determine_function_kind() to classify function types (free, member, static, etc.)
+- [X] T038 [US1] Implement FunctionExtractor._extract_calls() to find CALL_EXPR nodes within function bodies
+- [X] T039 [US1] Implement FunctionExtractor._build_qualified_name() to handle namespaces and classes
+- [X] T040 [US1] Add error handling for parse failures in CppParser (graceful degradation per FR-014)
+- [X] T041 [P] [US1] Create src/function_grouper/parser/__init__.py exporting CppParser
+- [X] T042 [P] [US1] Create CallAnalyzer class in src/function_grouper/analyzer/call_analyzer.py
+- [X] T043 [US1] Implement CallAnalyzer.build_call_graph() to convert Function list to CallGraph
+- [X] T044 [US1] Implement CallGraph.get_callers() method
+- [X] T045 [US1] Implement CallGraph.get_callees() method
+- [X] T046 [US1] Implement CallGraph.has_cycle() using networkx cycle detection
+- [X] T047 [US1] Implement CallGraph.find_cycles() using networkx algorithms
+- [X] T048 [P] [US1] Create Grouper class in src/function_grouper/analyzer/grouper.py
+- [X] T049 [US1] Implement Grouper.find_independent_groups() using networkx.connected_components()
+- [X] T050 [US1] Implement Grouper._compute_group_statistics() to populate internal_edges, external_edges, has_cycles
+- [X] T051 [US1] Implement Grouper._check_independence() to determine is_independent flag
+- [X] T052 [P] [US1] Create src/function_grouper/analyzer/__init__.py exporting analyzer classes
+- [X] T053 [US1] Add validation in CallGraph to ensure all edges reference existing functions
+- [X] T054 [US1] Add validation to handle function overloading correctly (FR-006)
+- [X] T055 [US1] Add handling for recursive functions (FR-011)
+- [X] T056 [US1] Add handling for template functions (FR-007)
+- [X] T057 [US1] Add handling for member functions and free functions (FR-009)
 
 **Checkpoint**: At this point, User Story 1 core functionality (parsing, analyzing, grouping) should be fully functional and testable independently
 
@@ -124,35 +124,35 @@
 
 ### Tests for User Story 2 - Write FIRST, ensure they FAIL
 
-- [ ] T058 [P] [US2] Unit test for JSONFormatter.format() in tests/unit/test_formatters.py
-- [ ] T059 [P] [US2] Unit test for TextFormatter.format() in tests/unit/test_formatters.py
-- [ ] T060 [P] [US2] Unit test for DOTFormatter.format() in tests/unit/test_formatters.py
+- [X] T058 [P] [US2] Unit test for JSONFormatter.format() in tests/unit/test_formatters.py
+- [X] T059 [P] [US2] Unit test for TextFormatter.format() in tests/unit/test_formatters.py
+- [X] T060 [P] [US2] Unit test for DOTFormatter.format() in tests/unit/test_formatters.py
 - [ ] T061 [P] [US2] Contract test for JSON output schema compliance in tests/contract/test_output_formats.py
 - [ ] T062 [P] [US2] Contract test for DOT format validity (parseable by Graphviz) in tests/contract/test_output_formats.py
-- [ ] T063 [P] [US2] Integration test for circular dependency detection and reporting in tests/integration/test_end_to_end.py
+- [X] T063 [P] [US2] Integration test for circular dependency detection and reporting in tests/integration/test_end_to_end.py
 
 ### Implementation for User Story 2
 
-- [ ] T064 [P] [US2] Create JSONFormatter class in src/function_grouper/formatter/json_formatter.py
-- [ ] T065 [P] [US2] Create TextFormatter class in src/function_grouper/formatter/text_formatter.py
-- [ ] T066 [P] [US2] Create DOTFormatter class in src/function_grouper/formatter/dot_formatter.py
-- [ ] T067 [US2] Implement JSONFormatter.format() to output JSON per schema in contracts/json-output-schema.json
-- [ ] T068 [US2] Implement JSONFormatter._format_metadata() to create metadata section
-- [ ] T069 [US2] Implement JSONFormatter._format_functions() to create functions array
-- [ ] T070 [US2] Implement JSONFormatter._format_groups() to create groups array
-- [ ] T071 [US2] Implement JSONFormatter._format_parse_errors() to create parse_errors array
-- [ ] T072 [US2] Implement TextFormatter.format() to create human-readable output per contracts/cli-interface.md
-- [ ] T073 [US2] Implement TextFormatter._format_summary() to create summary section
-- [ ] T074 [US2] Implement TextFormatter._format_groups() to create groups section with dependency info
-- [ ] T075 [US2] Implement TextFormatter._format_parse_errors() to list errors
-- [ ] T076 [US2] Implement DOTFormatter.format() to create Graphviz DOT output
-- [ ] T077 [US2] Implement DOTFormatter._create_nodes() to define function nodes
-- [ ] T078 [US2] Implement DOTFormatter._create_edges() to define call relationships
-- [ ] T079 [US2] Implement DOTFormatter._create_subgraphs() to visualize groups with cluster subgraphs
-- [ ] T080 [US2] Add circular dependency highlighting in DOTFormatter (different color/style)
-- [ ] T081 [P] [US2] Create src/function_grouper/formatter/__init__.py exporting all formatters
+- [X] T064 [P] [US2] Create JSONFormatter class in src/function_grouper/formatter/json_formatter.py
+- [X] T065 [P] [US2] Create TextFormatter class in src/function_grouper/formatter/text_formatter.py
+- [X] T066 [P] [US2] Create DOTFormatter class in src/function_grouper/formatter/dot_formatter.py
+- [X] T067 [US2] Implement JSONFormatter.format() to output JSON per schema in contracts/json-output-schema.json
+- [X] T068 [US2] Implement JSONFormatter._format_metadata() to create metadata section
+- [X] T069 [US2] Implement JSONFormatter._format_functions() to create functions array
+- [X] T070 [US2] Implement JSONFormatter._format_groups() to create groups array
+- [X] T071 [US2] Implement JSONFormatter._format_parse_errors() to create parse_errors array
+- [X] T072 [US2] Implement TextFormatter.format() to create human-readable output per contracts/cli-interface.md
+- [X] T073 [US2] Implement TextFormatter._format_summary() to create summary section
+- [X] T074 [US2] Implement TextFormatter._format_groups() to create groups section with dependency info
+- [X] T075 [US2] Implement TextFormatter._format_parse_errors() to list errors
+- [X] T076 [US2] Implement DOTFormatter.format() to create Graphviz DOT output
+- [X] T077 [US2] Implement DOTFormatter._create_nodes() to define function nodes
+- [X] T078 [US2] Implement DOTFormatter._create_edges() to define call relationships
+- [X] T079 [US2] Implement DOTFormatter._create_subgraphs() to visualize groups with cluster subgraphs
+- [X] T080 [US2] Add circular dependency highlighting in DOTFormatter (different color/style)
+- [X] T081 [P] [US2] Create src/function_grouper/formatter/__init__.py exporting all formatters
 - [ ] T082 [US2] Add JSON schema validation against contracts/json-output-schema.json
-- [ ] T083 [US2] Ensure all output is UTF-8 encoded
+- [X] T083 [US2] Ensure all output is UTF-8 encoded
 
 **Checkpoint**: At this point, User Stories 1 AND 2 should both work - can analyze and visualize in all 3 formats
 
@@ -166,17 +166,17 @@
 
 ### Tests for User Story 3 - Write FIRST, ensure they FAIL
 
-- [ ] T084 [P] [US3] Unit test for ExportSuggester.suggest_file_splits() in tests/unit/test_export.py
-- [ ] T085 [P] [US3] Unit test for ExportSuggester._identify_required_headers() in tests/unit/test_export.py
+- [X] T084 [P] [US3] Unit test for ExportSuggester.suggest_file_splits() in tests/unit/test_export.py
+- [X] T085 [P] [US3] Unit test for ExportSuggester._identify_required_headers() in tests/unit/test_export.py
 - [ ] T086 [P] [US3] Integration test for export suggestions with real C++ file in tests/integration/test_export_suggestions.py
 
 ### Implementation for User Story 3
 
-- [ ] T087 [US3] Create ExportSuggester class in src/function_grouper/analyzer/export_suggester.py
-- [ ] T088 [US3] Implement ExportSuggester.suggest_file_splits() to generate split recommendations
-- [ ] T089 [US3] Implement ExportSuggester._generate_filename_suggestions() based on group functions
-- [ ] T090 [US3] Implement ExportSuggester._identify_required_headers() by analyzing includes used by group
-- [ ] T091 [US3] Implement ExportSuggester._detect_imbalanced_groups() to warn about large groups
+- [X] T087 [US3] Create ExportSuggester class in src/function_grouper/analyzer/export_suggester.py
+- [X] T088 [US3] Implement ExportSuggester.suggest_file_splits() to generate split recommendations
+- [X] T089 [US3] Implement ExportSuggester._generate_filename_suggestions() based on group functions
+- [X] T090 [US3] Implement ExportSuggester._identify_required_headers() by analyzing includes used by group
+- [X] T091 [US3] Implement ExportSuggester._detect_imbalanced_groups() to warn about large groups
 - [ ] T092 [US3] Add export suggestions to JSON output format
 - [ ] T093 [US3] Add export suggestions to text output format
 - [ ] T094 [US3] Add CLI flag --export-suggestions to enable this feature
@@ -201,26 +201,26 @@
 
 ### Implementation for CLI
 
-- [ ] T102 Create Click application skeleton in src/function_grouper/cli/main.py
-- [ ] T103 Add required argument <input-file> with validation (exists, readable, <100MB)
-- [ ] T104 [P] Add option -f/--format with choices (json, text, dot) and default text
-- [ ] T105 [P] Add option -o/--output for output file with overwrite confirmation
-- [ ] T106 [P] Add option --std with C++ version choices (c++11/14/17/20/23) and default c++17
-- [ ] T107 [P] Add option -I/--include for include paths (repeatable)
+- [X] T102 Create Click application skeleton in src/function_grouper/cli/main.py
+- [X] T103 Add required argument <input-file> with validation (exists, readable, <100MB)
+- [X] T104 [P] Add option -f/--format with choices (json, text, dot) and default text
+- [X] T105 [P] Add option -o/--output for output file with overwrite confirmation
+- [X] T106 [P] Add option --std with C++ version choices (c++11/14/17/20/23) and default c++17
+- [X] T107 [P] Add option -I/--include for include paths (repeatable)
 - [ ] T108 [P] Add option --progress/--no-progress flag with default enabled
-- [ ] T109 [P] Add option -v/--verbose (count flag for verbosity levels)
+- [X] T109 [P] Add option -v/--verbose (count flag for verbosity levels)
 - [ ] T110 [P] Add option -q/--quiet (mutually exclusive with verbose)
 - [ ] T111 [P] Add option --strict/--no-strict for error handling mode
-- [ ] T112 [P] Add option -h/--help (Click provides automatically)
-- [ ] T113 [P] Add option --version showing tool version, libclang version, Python version
+- [X] T112 [P] Add option -h/--help (Click provides automatically)
+- [X] T113 [P] Add option --version showing tool version, libclang version, Python version
 - [ ] T114 [P] Add option --force to skip overwrite confirmation
 - [ ] T115 [P] Add option --export-suggestions for US3 feature
-- [ ] T116 Implement main() function orchestrating: parse → analyze → group → format → output
-- [ ] T117 Add error handling for all exit codes per contracts/cli-interface.md (codes 0-8)
-- [ ] T118 Implement output to stdout or file based on -o flag
+- [X] T116 Implement main() function orchestrating: parse → analyze → group → format → output
+- [X] T117 Add error handling for all exit codes per contracts/cli-interface.md (codes 0-8)
+- [X] T118 Implement output to stdout or file based on -o flag
 - [ ] T119 Add validation that -q and -v are mutually exclusive
-- [ ] T120 Create entry point in src/function_grouper/__main__.py calling cli.main.main()
-- [ ] T121 Configure project.scripts in pyproject.toml: function-grouper = function_grouper.cli.main:main
+- [X] T120 Create entry point in src/function_grouper/__main__.py calling cli.main.main()
+- [X] T121 Configure project.scripts in pyproject.toml: function-grouper = function_grouper.cli.main:main
 
 ---
 
@@ -384,15 +384,15 @@
 
 **Purpose**: Continuous integration and automated quality checks
 
-- [ ] T204 [P] Create GitHub Actions workflow in .github/workflows/ci.yml
-- [ ] T205 [P] Add CI job for running pytest with coverage
-- [ ] T206 [P] Add CI job for running ruff linter
-- [ ] T207 [P] Add CI job for running mypy type checker
-- [ ] T208 [P] Add CI job for testing on Linux, macOS, Windows
-- [ ] T209 [P] Add CI job for testing Python 3.11, 3.12
+- [X] T204 [P] Create GitHub Actions workflow in .github/workflows/ci.yml
+- [X] T205 [P] Add CI job for running pytest with coverage
+- [X] T206 [P] Add CI job for running ruff linter
+- [X] T207 [P] Add CI job for running mypy type checker
+- [X] T208 [P] Add CI job for testing on Linux, macOS, Windows
+- [X] T209 [P] Add CI job for testing Python 3.11, 3.12
 - [ ] T210 [P] Add CI job for verifying all examples/ samples execute successfully
 - [ ] T211 [P] Add CI job for verifying README.md code samples are runnable
-- [ ] T212 [P] Update CLAUDE.md with final project commands
+- [X] T212 [P] Update CLAUDE.md with final project commands
 
 ---
 
