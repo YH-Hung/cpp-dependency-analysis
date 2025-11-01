@@ -56,10 +56,33 @@ def version_callback(ctx: click.Context, param: click.Parameter, value: bool) ->
     help="Include directory (repeatable)",
 )
 @click.option(
+    "--progress/--no-progress",
+    default=True,
+    help="Show/hide progress indication (default: enabled)",
+)
+@click.option(
     "-v",
     "--verbose",
     count=True,
     help="Increase verbosity (-v, -vv, -vvv)",
+)
+@click.option(
+    "-q",
+    "--quiet",
+    is_flag=True,
+    default=False,
+    help="Suppress all output except errors (mutually exclusive with --verbose)",
+)
+@click.option(
+    "--strict/--no-strict",
+    default=False,
+    help="Fail if any function cannot be parsed (default: lenient)",
+)
+@click.option(
+    "--force",
+    is_flag=True,
+    default=False,
+    help="Overwrite output file without confirmation",
 )
 @click.option(
     "--export-suggestions",
@@ -81,7 +104,11 @@ def main(
     output: str | None,
     std: str,
     include_paths: tuple[str, ...],
+    progress: bool,
     verbose: int,
+    quiet: bool,
+    strict: bool,
+    force: bool,
     export_suggestions: bool,
 ) -> None:
     """
@@ -90,50 +117,78 @@ def main(
     INPUT_FILE: C++ implementation file (.cpp) to analyze
     """
     try:
+        # Validate mutual exclusivity of quiet and verbose
+        if quiet and verbose > 0:
+            click.echo("Error: --quiet and --verbose are mutually exclusive", err=True)
+            sys.exit(5)  # INVALID_ARGUMENTS
+
+        # Check if output file exists and prompt for confirmation unless --force
+        if output and not force:
+            output_path = Path(output)
+            if output_path.exists():
+                if not click.confirm(f"Output file {output} already exists. Overwrite?"):
+                    click.echo("Aborted.", err=True)
+                    sys.exit(0)
+
         # Verbose output
-        if verbose > 0:
+        if verbose > 0 and not quiet:
             click.echo(f"Analyzing: {input_file}", err=True)
             click.echo(f"C++ Standard: {std}", err=True)
             if include_paths:
                 click.echo(f"Include paths: {', '.join(include_paths)}", err=True)
 
         # Step 1: Parse the C++ file
-        if verbose > 1:
+        if verbose > 1 and not quiet:
             click.echo("Parsing C++ file...", err=True)
 
         parser = CppParser()
         functions = parser.parse_file(input_file, std_version=std)
 
-        if verbose > 1:
+        if verbose > 1 and not quiet:
             click.echo(f"Found {len(functions)} functions", err=True)
 
+        # Check for parse failures in strict mode
+        failed_functions = [f for f in functions if f.parse_status.name != "SUCCESS"]
+        if strict and failed_functions:
+            click.echo(
+                f"Error: Strict mode enabled. Failed to parse {len(failed_functions)} function(s)",
+                err=True
+            )
+            for func in failed_functions:
+                error_msg = getattr(func, 'error_message', 'Unknown error')
+                click.echo(
+                    f"  - {func.qualified_name} at line {func.location.line_number}: {error_msg}",
+                    err=True
+                )
+            sys.exit(4)  # PARSE_ERROR
+
         # Step 2: Build call graph
-        if verbose > 1:
+        if verbose > 1 and not quiet:
             click.echo("Building call graph...", err=True)
 
         analyzer = CallAnalyzer()
         call_graph = analyzer.build_call_graph(functions)
 
         # Step 3: Find independent groups
-        if verbose > 1:
+        if verbose > 1 and not quiet:
             click.echo("Finding independent groups...", err=True)
 
         grouper = Grouper()
         groups = grouper.find_independent_groups(call_graph)
 
-        if verbose > 0:
+        if verbose > 0 and not quiet:
             click.echo(f"Found {len(groups)} groups", err=True)
 
         # Step 3.5: Generate export suggestions if requested
         suggestions = None
         if export_suggestions:
-            if verbose > 1:
+            if verbose > 1 and not quiet:
                 click.echo("Generating export suggestions...", err=True)
             suggester = ExportSuggester()
             suggestions = suggester.suggest_file_splits(call_graph, groups)
 
         # Step 4: Format output
-        if verbose > 1:
+        if verbose > 1 and not quiet:
             click.echo(f"Formatting output as {format}...", err=True)
 
         result: str
@@ -142,7 +197,7 @@ def main(
             result = formatter.format(groups, input_file, suggestions)
         elif format == "json":
             json_formatter = JSONFormatter()
-            result = json_formatter.format(groups, input_file, suggestions)
+            result = json_formatter.format(groups, call_graph, input_file, suggestions)
         elif format == "dot":
             dot_formatter = DOTFormatter()
             result = dot_formatter.format(groups, call_graph, input_file)
@@ -154,7 +209,7 @@ def main(
         if output:
             output_path = Path(output)
             output_path.write_text(result)
-            if verbose > 0:
+            if verbose > 0 and not quiet:
                 click.echo(f"Output written to: {output}", err=True)
         else:
             click.echo(result)
@@ -164,9 +219,15 @@ def main(
         sys.exit(2)
     except Exception as e:
         click.echo(f"Error: {e}", err=True)
-        if verbose > 2:
-            import traceback
-            traceback.print_exc()
+        # Show traceback if verbose, but respect the function signature
+        # Note: verbose might not be defined if error occurs before argument parsing
+        try:
+            if verbose > 2 and not quiet:
+                import traceback
+                traceback.print_exc()
+        except NameError:
+            # verbose not defined yet, skip traceback
+            pass
         sys.exit(1)
 
 
