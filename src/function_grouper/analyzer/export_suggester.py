@@ -25,8 +25,9 @@ class ExportSuggester:
         suggestions = []
 
         for group in groups:
+            # Use 1-based indexing for consistency with formatters
             suggestion = {
-                "group_id": group.group_id,
+                "group_id": group.group_id + 1,
                 "suggested_filename": self._generate_filename_suggestion(graph, group),
                 "functions": group.functions,
                 "required_headers": self._identify_required_headers(graph, group.functions),

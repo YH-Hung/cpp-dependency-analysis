@@ -6,6 +6,7 @@ from pathlib import Path
 import click
 
 from function_grouper.analyzer.call_analyzer import CallAnalyzer
+from function_grouper.analyzer.export_suggester import ExportSuggester
 from function_grouper.analyzer.grouper import Grouper
 from function_grouper.formatter.dot_formatter import DOTFormatter
 from function_grouper.formatter.json_formatter import JSONFormatter
@@ -61,6 +62,12 @@ def version_callback(ctx: click.Context, param: click.Parameter, value: bool) ->
     help="Increase verbosity (-v, -vv, -vvv)",
 )
 @click.option(
+    "--export-suggestions",
+    is_flag=True,
+    default=False,
+    help="Include file split suggestions based on independent groups",
+)
+@click.option(
     "--version",
     is_flag=True,
     is_eager=True,
@@ -75,6 +82,7 @@ def main(
     std: str,
     include_paths: tuple[str, ...],
     verbose: int,
+    export_suggestions: bool,
 ) -> None:
     """
     Analyze C++ function dependencies and identify independent groups.
@@ -116,6 +124,14 @@ def main(
         if verbose > 0:
             click.echo(f"Found {len(groups)} groups", err=True)
 
+        # Step 3.5: Generate export suggestions if requested
+        suggestions = None
+        if export_suggestions:
+            if verbose > 1:
+                click.echo("Generating export suggestions...", err=True)
+            suggester = ExportSuggester()
+            suggestions = suggester.suggest_file_splits(call_graph, groups)
+
         # Step 4: Format output
         if verbose > 1:
             click.echo(f"Formatting output as {format}...", err=True)
@@ -123,10 +139,10 @@ def main(
         result: str
         if format == "text":
             formatter = TextFormatter()
-            result = formatter.format(groups, input_file)
+            result = formatter.format(groups, input_file, suggestions)
         elif format == "json":
             json_formatter = JSONFormatter()
-            result = json_formatter.format(groups, input_file)
+            result = json_formatter.format(groups, input_file, suggestions)
         elif format == "dot":
             dot_formatter = DOTFormatter()
             result = dot_formatter.format(groups, call_graph, input_file)
@@ -155,4 +171,4 @@ def main(
 
 
 if __name__ == "__main__":
-    main()  # type: ignore[call-arg]
+    main()

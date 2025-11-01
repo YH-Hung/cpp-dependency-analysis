@@ -9,13 +9,19 @@ from function_grouper.models.group import FunctionGroup
 class JSONFormatter:
     """Format function groups as JSON."""
 
-    def format(self, groups: list[FunctionGroup], source_file: str) -> str:
+    def format(
+        self,
+        groups: list[FunctionGroup],
+        source_file: str,
+        export_suggestions: list[dict[str, Any]] | None = None,
+    ) -> str:
         """
         Format function groups as JSON.
 
         Args:
             groups: List of function groups
             source_file: Path to the source file analyzed
+            export_suggestions: Optional export suggestions from ExportSuggester
 
         Returns:
             JSON string
@@ -45,5 +51,9 @@ class JSONFormatter:
                 "has_cycles": group.has_cycles,
             }
             output["groups"].append(group_data)
+
+        # Add export suggestions if provided
+        if export_suggestions:
+            output["export_suggestions"] = export_suggestions
 
         return json.dumps(output, indent=2)

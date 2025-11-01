@@ -177,9 +177,9 @@
 - [X] T089 [US3] Implement ExportSuggester._generate_filename_suggestions() based on group functions
 - [X] T090 [US3] Implement ExportSuggester._identify_required_headers() by analyzing includes used by group
 - [X] T091 [US3] Implement ExportSuggester._detect_imbalanced_groups() to warn about large groups
-- [ ] T092 [US3] Add export suggestions to JSON output format
-- [ ] T093 [US3] Add export suggestions to text output format
-- [ ] T094 [US3] Add CLI flag --export-suggestions to enable this feature
+- [X] T092 [US3] Add export suggestions to JSON output format
+- [X] T093 [US3] Add export suggestions to text output format
+- [X] T094 [US3] Add CLI flag --export-suggestions to enable this feature
 
 **Checkpoint**: All user stories should now be independently functional
 
@@ -214,7 +214,7 @@
 - [X] T112 [P] Add option -h/--help (Click provides automatically)
 - [X] T113 [P] Add option --version showing tool version, libclang version, Python version
 - [ ] T114 [P] Add option --force to skip overwrite confirmation
-- [ ] T115 [P] Add option --export-suggestions for US3 feature
+- [X] T115 [P] Add option --export-suggestions for US3 feature
 - [X] T116 Implement main() function orchestrating: parse → analyze → group → format → output
 - [X] T117 Add error handling for all exit codes per contracts/cli-interface.md (codes 0-8)
 - [X] T118 Implement output to stdout or file based on -o flag
